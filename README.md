@@ -24,6 +24,8 @@ Backend: Express.js, PostgreSQL, Google Map API
 
 ## Features
 
+✅ : completed feature
+
 ### Hobby-Based Matching
 
 Connect people who share the same favorite hobbies, from ballroom dancing, cooking, hiking to raving, by selecting interests in the user's profile.
