@@ -1,0 +1,35 @@
+[
+  {
+    "first_name": "Fay",
+    "last_name": "Nguyen",
+    "username": "faycoding",
+    "age": 20,
+    "city": "Northfield",
+    "state": "MN",
+    "zipcode": 55057,
+    "bio": "CS + Math student passionate about app development and AI."
+  },
+  {
+    "first_name": "Aiden",
+    "last_name": "Smith",
+    "username": "aidenadventure",
+    "age": 22,
+    "city": "Chicago",
+    "state": "IL",
+    "zipcode": 60601,
+    "bio": "Traveler and coffee lover."
+  },
+  {
+    "first_name": "Luna",
+    "last_name": "Zhao",
+    "username": "lunartrek",
+    "age": 19,
+    "city": "Minneapolis",
+    "state": "MN",
+    "zipcode": 55414,
+    "bio": "K-pop fan who loves hiking and digital art."
+    }
+]
+
+
+

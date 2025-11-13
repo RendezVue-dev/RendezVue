@@ -1,0 +1,22 @@
+[
+    { 
+        "name": "hiking", 
+        "description": "Exploring nature trails and mountains.", 
+        "population": 1200 
+    },
+    { 
+        "name": "Photography", 
+        "description": "Capturing moments and scenery.", 
+        "population": 900
+    },
+    { 
+        "name": "Cooking", 
+        "description": "Trying new recipes and sharing meals.", 
+        "population": 1500
+    },
+    { 
+        "name": "Gaming", 
+        "description": "Competitive and casual digital gaming.", 
+        "population": 2500
+    }
+]

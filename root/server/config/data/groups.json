@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Nature Explorers",
+    "description": "For outdoor enthusiasts and hikers.",
+    "hobby_id": 1,
+    "created_by": 1
+  },
+  {
+    "name": "Home Chefs United",
+    "description": "Share recipes and cooking inspiration!",
+    "hobby_id": 3,
+    "created_by": 3
+  }
+]
