@@ -2,21 +2,25 @@
     { 
         "name": "hiking", 
         "description": "Exploring nature trails and mountains.", 
-        "population": 1200 
+        "population": 1200,
+        "created_at": "2025-09-19 09:00:00"
     },
     { 
         "name": "Photography", 
         "description": "Capturing moments and scenery.", 
-        "population": 900
+        "population": 900,
+        "created_at": "2025-09-19 09:00:00"
     },
     { 
         "name": "Cooking", 
         "description": "Trying new recipes and sharing meals.", 
-        "population": 1500
+        "population": 1500,        
+        "created_at": "2025-09-19 09:00:00"
     },
     { 
         "name": "Gaming", 
         "description": "Competitive and casual digital gaming.", 
-        "population": 2500
+        "population": 2500,
+        "created_at": "2025-09-19 09:00:00"
     }
 ]

@@ -22,20 +22,20 @@ const users_hobbiesData = JSON.parse(fs.readFileSync(path.join(dirname(currentPa
 
 const createUsersTable = async () => {
     const createUsersTableQuery = `
-        DROP TABLE IF EXISTS users;
+        DROP TABLE IF EXISTS users CASCADE;
 
         CREATE TABLE IF NOT EXISTS users (
-            id serial PRIMARY KEY
-            first_name VARCHAR(100) NOT NULL
-            last_name VARCHAR(100) NOT NULL
-            username VARCHAR(100) NOT NULL
-            age INTEGER NOT NULL
-            city VARCHAR(50) NOT NULL
-            state VARCHAR(10) NOT NULL
-            zipcode INTEGER NOTNULL
-            bio VARCHAR
-            created_at DATETIME NOT NULL
-            modified_at DATETIME NOT NULL
+            id serial PRIMARY KEY,
+            first_name VARCHAR(100) NOT NULL,
+            last_name VARCHAR(100) NOT NULL,
+            username VARCHAR(100) NOT NULL,
+            age INTEGER NOT NULL,
+            city VARCHAR(50) NOT NULL,
+            state VARCHAR(10) NOT NULL,
+            zipcode INTEGER NOT NULL,
+            bio VARCHAR,
+            created_at TIMESTAMP NOT NULL,
+            modified_at TIMESTAMP NOT NULL
         );
     `;
 
@@ -49,43 +49,43 @@ const createUsersTable = async () => {
 
 };
 
-const seedTripsTable = async () => {    
-    await createTripsTable();
-    tripsData.forEach((trip) => {
+const seedUsersTable = async () => {    
+    await createUsersTable();
+    usersData.forEach( async (user) => {
         const insertQuery = {
-            text: 'INSERT INTO trips (title, description, img_url, num_days, start_date, end_date, total_cost) VALUES ($1, $2, $3, $4, $5, $6, $7)'
+            text: 'INSERT INTO users (first_name, last_name, username, age, city, state, zipcode, bio, created_at, modified_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)',
         };
         const values = [
-            trip.title,
-            trip.description,
-            trip.img_url,
-            trip.num_days,
-            trip.start_date,
-            trip.end_date,
-            trip.total_cost
+            user.first_name,
+            user.last_name,
+            user.username,
+            user.age,
+            user.city,
+            user.state,
+            user.zipcode,
+            user.bio || null,     
+            user.created_at,           
+            user.modified_at           
         ];
-        pool.query(insertQuery, values, (err, res) => {
-            if (err) {
-                console.error('⚠️ error inserting trip', err)
-                return
-            }
-
-            console.log(`✅ ${trip.title} added successfully`)
-        });
-    
-    })
+        try {
+            await pool.query(insertQuery, values);
+            console.log(`✅ ${user.username} added successfully`);
+        } catch (err) {
+            console.error('⚠️ error inserting user', err);
+        };
+    });
 };
 
 const createHobbiesTable = async () =>{
     const createHobbiesTableQuery = `
-        DROP TABLE IF EXISTS hobbies;
+        DROP TABLE IF EXISTS hobbies CASCADE;
 
         CREATE TABLE IF NOT EXISTS hobbies (
-            id SERIAL PRIMARY KEY
-            name VARCHAR(100) NOT NULL
-            description VARCHAR(200)
-            population INTEGER NOT NULL
-            created_at DATETIME NOT NULL
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(100) NOT NULL,
+            description VARCHAR(200),
+            population INTEGER NOT NULL,
+            created_at TIMESTAMP NOT NULL
       );`;
     try {
         const res = await pool.query(createHobbiesTableQuery)
@@ -96,9 +96,30 @@ const createHobbiesTable = async () =>{
     }
 };
 
+const seedHobbiesTable = async () => {    
+    await createHobbiesTable();
+    hobbiesData.forEach( async (hobby) => {
+        const insertQuery = {
+            text: 'INSERT INTO hobbies (name, description, population, created_at) VALUES ($1, $2, $3, $4)',
+        };
+        const values = [
+            hobby.name,
+            hobby.description,
+            hobby.population,
+            hobby.created_at   
+        ];
+        try {
+            await pool.query(insertQuery, values);
+            console.log(`✅ ${hobby.name} added successfully`);
+        } catch (err) {
+            console.error('⚠️ error inserting hobby', err);
+        };
+    });
+};
+
 const createUserHobbyTable = async () => {
     const createUserHobbyTableQuery = `
-        DROP TABLE IF EXISTS user_hobby ;
+        DROP TABLE IF EXISTS user_hobby CASCADE;
 
         CREATE TABLE IF NOT EXISTS user_hobby (
             user_id INTEGER NOT NULL,
@@ -118,36 +139,86 @@ const createUserHobbyTable = async () => {
     }
 };
 
+const seedUserHobbyTable = async () => {    
+    await createUserHobbyTable();
+    users_hobbiesData.forEach( async (user_hobby) => {
+        const insertQuery = {
+            text: 'INSERT INTO user_hobby (user_id, hobby_id) VALUES ($1, $2);',
+        };
+        const values = [
+            user_hobby.user_id, 
+            user_hobby.hobby_id
+        ];
+        try {
+            await pool.query(insertQuery, values);
+            console.log(`✅ hobby-user added successfully`);
+        } catch (err) {
+            console.error('⚠️ error inserting hobby-user', err);
+        };
+    });
+};
+
 const createEventsTable = async () => {
     const createEventsTableQuery = `
-        DROP TABLE IF EXISTS events;
+        DROP TABLE IF EXISTS events CASCADE;
 
         CREATE TABLE IF NOT EXISTS events (
-            id SERIAL PRIMARY KEY
-            creator_id INTEGER NOT NULL REFERENCES users(id)
-            hobby_id INTEGER NOT NULL REFERENCES hobbies(id)
-            title VARCHAR(200) NOT NULL
-            description VARCHAR(500)
-            venue_name VARCHAR(200) NOT NULL
-            venue_street_address VARCHAR(200) NOT NULL
-            venue_city VARCHAR(50) NOT NULL
-            venue_state VARCHAR(20) NOT NULL
-            venue_zip_code INTEGERR NOT NULL
-            start_time DATETIME NOT NULL
-            end_time DATETIME
-            capacity INTEGERR 
-            created_at DATETIME NOT NULL
-            modified_at DATETIME NOT NULL
+            id SERIAL PRIMARY KEY,
+            creator_id INTEGER NOT NULL ,
+            FOREIGN KEY (creator_id) REFERENCES users(id),
+            hobby_id INTEGER NOT NULL,
+            FOREIGN KEY (hobby_id) REFERENCES hobbies(id),
+            title VARCHAR(200) NOT NULL,
+            description VARCHAR(500),
+            venue_name VARCHAR(200) NOT NULL,
+            venue_street_address VARCHAR(200) NOT NULL,
+            venue_city VARCHAR(50) NOT NULL,
+            venue_state VARCHAR(20) NOT NULL,
+            venue_zip_code INTEGER NOT NULL,
+            start_time TIMESTAMP NOT NULL,
+            capacity INTEGER,
+            created_at TIMESTAMP NOT NULL,
+            modified_at TIMESTAMP NOT NULL
         )
     `;
     try {
-    const res = await pool.query(createEventsTableQuery)
-    console.log('🎉 events table created successfully')
+        const res = await pool.query(createEventsTableQuery)
+        console.log('🎉 events table created successfully')
     }
-    catch (error) {
-    console.error('⚠️ error creating events table', err)
+        catch (err) {
+        console.error('⚠️ error creating events table', err)
     };
 
+};
+
+const seedEventsTable = async () => {    
+    await createEventsTable();
+    eventsData.forEach( async (event) => {
+        const insertQuery = {
+            text: 'INSERT INTO events (creator_id, hobby_id, title, description, venue_name, venue_street_address, venue_city, venue_state, venue_zip_code, start_time, capacity, created_at, modified_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);',
+        };
+        const values = [
+            event.creator_id, 
+            event.hobby_id, 
+            event.title, 
+            event.description || null, 
+            event.venue_name, 
+            event.venue_street_address, 
+            event.venue_city, 
+            event.venue_state, 
+            event.venue_zip_code, 
+            event.start_time, 
+            event.capacity || null, 
+            event.created_at, 
+            event.modified_at   
+        ];
+        try {
+            await pool.query(insertQuery, values);
+            console.log(`✅ ${event.title} added successfully`);
+        } catch (err) {
+            console.error('⚠️ error inserting event', err);
+        };
+    });
 };
 
 const createEventParticipationTable = async () => {
@@ -158,7 +229,7 @@ const createEventParticipationTable = async () => {
             event_id INTEGER NOT NULL REFERENCES events(id)
             user_id INTEGER NOT NULL REFERENCES users(id)
             host BOOL NOT NULL
-            reistered_at DATETIME NOT NULL
+            reistered_at TIMESTAMP NOT NULL
         );
     `;
 
@@ -173,16 +244,19 @@ const createEventParticipationTable = async () => {
 
 const createGroupsTable = async () => {
     const createGroupsTableQuery = `
-        DROP TABLE IF EXISTS groups;
+        DROP TABLE IF EXISTS groups CASCADE;
 
         CREATE TABLE IF NOT EXISTS groups(
-            id SERIAL PRIMARY KEY
-            name VARCHAR(100) NOT NULL
-            description VARCHAR(200) 
-            hobby_id int NOT NULL REFERENCE hobbies(id)
-            created_by int NOT NULL REFERENCE users(id)
-            created_at DATETIME NOT NULL
-            modified_at DATETIME NOT NULL
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(100) NOT NULL,
+            description VARCHAR(200), 
+            hobby_id INTEGER NOT NULL,
+            num_members INTEGER NOT NULL,
+            FOREIGN KEY (hobby_id) REFERENCES hobbies(id),
+            created_by INTEGER NOT NULL ,
+            FOREIGN KEY (created_by) REFERENCES users(id),
+            created_at TIMESTAMP NOT NULL,
+            modified_at TIMESTAMP NOT NULL
         );
     `;
 
@@ -190,20 +264,44 @@ const createGroupsTable = async () => {
         const res = await pool.query(createGroupsTableQuery)
         console.log('🎉 groups table created successfully')
     }
-    catch (error) {
+    catch (err) {
         console.error('⚠️ error creating groups table', err)
     }
 };
 
+const seedGroupsTable = async () => {    
+    await createGroupsTable();
+    groupsData.forEach( async (group) => {
+        const insertQuery = {
+            text: 'INSERT INTO groups (name, description, hobby_id, created_by, num_members, created_at, modified_at) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+        };
+        const values = [
+            group.name,
+            group.description || null,
+            group.hobby_id,
+            group.created_by,
+            group.num_members,
+            group.created_at,
+            group.modified_at  
+        ];
+        try {
+            await pool.query(insertQuery, values);
+            console.log(`✅ ${group.name} added successfully`);
+        } catch (err) {
+            console.error('⚠️ error inserting group', err);
+        };
+    });
+};
+
 const createGroupMemberTable = async () => {
     const createGroupMemberTableQuery = `
-        DROP TABLE IF EXISTS group_member;
+        DROP TABLE IF EXISTS group_member CASCADE;
 
         CREATE TABLE IF NOT EXISTS group_member(
             group_id INTEGER NOT NULL REFERENCES groups(id)
             user_id INTEGER NOT NULL REFERENCES users(id)
             admin BOOL NOT NULL
-            joined_at DATETIME NOT NULL
+            joined_at TIMESTAMP NOT NULL
         );
     `;
 
@@ -218,20 +316,22 @@ const createGroupMemberTable = async () => {
 
 const createMatchesTable = async () => {
     const createMatchesTableQuery = `
-        DROP TABLE IF EXISTS matches;
+        DROP TABLE IF EXISTS matches CASCADE;
 
         CREATE TABLE IF NOT EXISTS matches(
-            id  SERIAL PRIMARY KEY
-            user1_id INTEGER NOT NULL
-            user2_id INTEGER NOT NULL
-            shared_hobbies_count INTEGER NOT NULL
-            proximity_km  FLOAT NOT NULL
-            interaction_count INTEGER NOT NULL
-            compatibility_score FLOAT NOT NULL
-            suggested BOOL NOT NULL
-            match BOOL NOT NULL
-            matched_at DATETIME
-            last_updated DATETIME NOT NULL
+            id  SERIAL PRIMARY KEY,
+            user1_id INTEGER NOT NULL,
+            FOREIGN KEY (user1_id) REFERENCES users(id),
+            user2_id INTEGER NOT NULL,
+            FOREIGN KEY (user2_id) REFERENCES users(id),
+            shared_hobbies_count INTEGER NOT NULL,
+            proximity_km FLOAT NOT NULL,
+            interaction_count INTEGER NOT NULL,
+            compatibility_score FLOAT NOT NULL,
+            suggested BOOL NOT NULL,
+            match BOOL NOT NULL,
+            matched_at TIMESTAMP,
+            last_updated TIMESTAMP NOT NULL
         );
     `;
 
@@ -239,28 +339,54 @@ const createMatchesTable = async () => {
         const res = await pool.query(createMatchesTableQuery)
         console.log('🎉 matches table created successfully')
     }
-    catch (error) {
+    catch (err) {
         console.error('⚠️ error creating matches table', err)
     }
 };
 
+const seedMatchesTable = async () => {    
+    await createMatchesTable();
+    matchesData.forEach( async (match) => {
+        const insertQuery = {
+            text: 'INSERT INTO matches (user1_id, user2_id, shared_hobbies_count, proximity_km , interaction_count, compatibility_score, suggested, match, matched_at,last_updated) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);',
+        };
+        const values = [
+            match.user1_id, 
+            match.user2_id,
+            match.shared_hobbies_count,
+            match.proximity_km,
+            match.interaction_count,
+            match.compatibility_score,
+            match.suggested,
+            match.match,
+            match.matched_at || null,
+            match.last_updated
+        ];
+        try {
+            await pool.query(insertQuery, values);
+            console.log(`✅ match added successfully`);
+        } catch (err) {
+            console.error('⚠️ error inserting match', err);
+        };
+    });
+};
+
 const createInsightsTable = async () => {
     const createInsightsTableQuery = `
-        DROP TABLE IF EXISTS insights;
+        DROP TABLE IF EXISTS insights CASCADE;
 
         CREATE TABLE IF NOT EXISTS insights(
-            id SERIAL PRIMARY KEY
-            user_id INTEGER NOT NULL
-            total_matches INTEGER NOT NULL
-            active_hobbies INTEGER NOT NULL
-            events_joined INTEGER NOT NULL
-            events_hosted INTEGER NOT NULL
-            groups_joined INTEGER NOT NULL
-            messages_sent INTEGER NOT NULL
-            avg_match_score FLOAT NOT NULL
-            avg_response_time FLOAT NOT NULL
-            total_interactions INTEGER NOT NULL
-            updated_at DATETIME NOT NULL
+            id SERIAL PRIMARY KEY,
+            user_id INTEGER NOT NULL,
+            total_matches INTEGER NOT NULL,
+            active_hobbies INTEGER NOT NULL,
+            events_joined INTEGER NOT NULL,
+            events_hosted INTEGER NOT NULL,
+            groups_joined INTEGER NOT NULL,
+            avg_match_score FLOAT NOT NULL,
+            total_interactions INTEGER NOT NULL,
+            updated_at TIMESTAMP NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id)
         );
     `;
 
@@ -268,7 +394,53 @@ const createInsightsTable = async () => {
         const res = await pool.query(createInsightsTableQuery)
         console.log('🎉 insights table created successfully')
     }
-    catch (error) {
+    catch (err) {
         console.error('⚠️ error creating insights table', err)
     }
 };
+
+const seedInsightsTable = async () => {    
+    await createInsightsTable();
+    insightsData.forEach( async (insight) => {
+        const insertQuery = {
+            text: 'INSERT INTO insights (user_id, total_matches, active_hobbies, events_joined, events_hosted, groups_joined, avg_match_score, total_interactions, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
+        };
+        const values = [
+            insight.user_id,
+            insight.total_matches || null,
+            insight.active_hobbies,
+            insight.events_joined,
+            insight.events_hosted,
+            insight.groups_joined,
+            insight.avg_match_score,
+            insight.total_interactions,
+            insight.updated_at
+        ];
+        try {
+            await pool.query(insertQuery, values);
+            console.log(`✅ insight of ${insight.user_id} added successfully`);
+        } catch (err) {
+            console.error('⚠️ error inserting insight', err);
+        };
+    });
+};
+
+const baseTableSeed = async () => {
+    await seedUsersTable();
+    await seedHobbiesTable();
+};
+
+const dependentTableSeed = async () => {
+    await seedEventsTable();
+    await seedGroupsTable();
+    await seedInsightsTable();
+    await seedUserHobbyTable();
+    await seedMatchesTable();
+};
+
+const main = async () =>{
+    await baseTableSeed();
+    await dependentTableSeed();
+}
+
+main();
