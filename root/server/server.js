@@ -2,6 +2,11 @@ import express from 'express'
 import path from 'path'
 import favicon from 'serve-favicon'
 import dotenv from 'dotenv'
+import EventsRouter from 'routes/events.js';
+import GroupsRouter from 'routes/groups.js';
+import HobbiesRouter from 'routes/hobbies.js';
+import UserHobbyRouter from 'routes/userHobby.js';
+import UsersRouter from 'routes/users.js';
 
 dotenv.config()
 
@@ -26,3 +31,14 @@ if (process.env.NODE_ENV === 'production') {
 app.listen(PORT, () => {
     console.log(`server listening on http://localhost:${PORT}`)
 })
+
+app.use('/events', EventsRouter);
+
+app.use('/groups', GroupsRouter);
+
+app.use('/users', UsersRouter);
+
+app.use('/hobbies', HobbiesRouter);
+
+app.use('/userHobby', UserHobbyRouter);
+

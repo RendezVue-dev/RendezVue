@@ -319,7 +319,6 @@ const createMatchesTable = async () => {
         DROP TABLE IF EXISTS matches CASCADE;
 
         CREATE TABLE IF NOT EXISTS matches(
-            id  SERIAL PRIMARY KEY,
             user1_id INTEGER NOT NULL,
             FOREIGN KEY (user1_id) REFERENCES users(id),
             user2_id INTEGER NOT NULL,
@@ -332,6 +331,11 @@ const createMatchesTable = async () => {
             match BOOL NOT NULL,
             matched_at TIMESTAMP,
             last_updated TIMESTAMP NOT NULL
+        );
+
+        CREATE UNIQUE INDEX unique_user_pair ON matches (
+            LEAST(user1_id, user2_id),
+            GREATEST(user1_id, user2_id)
         );
     `;
 
