@@ -3,8 +3,11 @@ import './dotenv.js'
 import { fileURLToPath } from 'url'
 import path, { dirname } from 'path'
 import fs from 'fs'
+import parser from 'csv-parser'
 
 const currentPath = fileURLToPath(import.meta.url);
+
+/*
 
 const usersData = JSON.parse(fs.readFileSync(path.join(dirname(currentPath), '/data/users.json')));
 
@@ -20,6 +23,10 @@ const matchesData = JSON.parse(fs.readFileSync(path.join(dirname(currentPath), '
 
 const users_hobbiesData = JSON.parse(fs.readFileSync(path.join(dirname(currentPath), '/data/users_hobbies.json')));
 
+*/
+
+const zipcodeData = JSON.parse(fs.readFileSync(path.join(dirname(currentPath), '/data/zipcodes.json')));
+
 const createUsersTable = async () => {
     const createUsersTableQuery = `
         DROP TABLE IF EXISTS users CASCADE;
@@ -33,6 +40,7 @@ const createUsersTable = async () => {
             city VARCHAR(50) NOT NULL,
             state VARCHAR(10) NOT NULL,
             zipcode INTEGER NOT NULL,
+            FOREIGN KEY (zipcode) REFERENCES zipcodes(zipcode),
             bio VARCHAR,
             created_at TIMESTAMP NOT NULL,
             modified_at TIMESTAMP NOT NULL
@@ -49,6 +57,7 @@ const createUsersTable = async () => {
 
 };
 
+/*
 const seedUsersTable = async () => {    
     await createUsersTable();
     usersData.forEach( async (user) => {
@@ -75,6 +84,7 @@ const seedUsersTable = async () => {
         };
     });
 };
+*/
 
 const createHobbiesTable = async () =>{
     const createHobbiesTableQuery = `
@@ -96,6 +106,7 @@ const createHobbiesTable = async () =>{
     }
 };
 
+/*
 const seedHobbiesTable = async () => {    
     await createHobbiesTable();
     hobbiesData.forEach( async (hobby) => {
@@ -116,6 +127,7 @@ const seedHobbiesTable = async () => {
         };
     });
 };
+*/
 
 const createUserHobbyTable = async () => {
     const createUserHobbyTableQuery = `
@@ -139,6 +151,7 @@ const createUserHobbyTable = async () => {
     }
 };
 
+/*
 const seedUserHobbyTable = async () => {    
     await createUserHobbyTable();
     users_hobbiesData.forEach( async (user_hobby) => {
@@ -157,6 +170,7 @@ const seedUserHobbyTable = async () => {
         };
     });
 };
+ */
 
 const createEventsTable = async () => {
     const createEventsTableQuery = `
@@ -174,7 +188,8 @@ const createEventsTable = async () => {
             venue_street_address VARCHAR(200) NOT NULL,
             venue_city VARCHAR(50) NOT NULL,
             venue_state VARCHAR(20) NOT NULL,
-            venue_zip_code INTEGER NOT NULL,
+            venue_zipcode INTEGER NOT NULL,
+            FOREIGN KEY (venue_zipcode) REFERENCES zipcodes(zipcode),
             start_time TIMESTAMP NOT NULL,
             capacity INTEGER,
             created_at TIMESTAMP NOT NULL,
@@ -191,6 +206,7 @@ const createEventsTable = async () => {
 
 };
 
+/*
 const seedEventsTable = async () => {    
     await createEventsTable();
     eventsData.forEach( async (event) => {
@@ -220,16 +236,17 @@ const seedEventsTable = async () => {
         };
     });
 };
+*/
 
 const createEventParticipationTable = async () => {
     const createEventParticipationTableQuery = `
         DROP TABLE IF EXISTS event_participation;
 
         CREATE TABLE IF NOT EXISTS event_participation (
-            event_id INTEGER NOT NULL REFERENCES events(id)
-            user_id INTEGER NOT NULL REFERENCES users(id)
-            host BOOL NOT NULL
-            reistered_at TIMESTAMP NOT NULL
+            event_id INTEGER NOT NULL REFERENCES events(id),
+            user_id INTEGER NOT NULL REFERENCES users(id),
+            host BOOL NOT NULL,
+            registered_at TIMESTAMP NOT NULL
         );
     `;
 
@@ -269,6 +286,7 @@ const createGroupsTable = async () => {
     }
 };
 
+/*
 const seedGroupsTable = async () => {    
     await createGroupsTable();
     groupsData.forEach( async (group) => {
@@ -290,23 +308,25 @@ const seedGroupsTable = async () => {
         } catch (err) {
             console.error('⚠️ error inserting group', err);
         };
-    });
+  
+        });
 };
+*/
 
 const createGroupMemberTable = async () => {
     const createGroupMemberTableQuery = `
         DROP TABLE IF EXISTS group_member CASCADE;
 
         CREATE TABLE IF NOT EXISTS group_member(
-            group_id INTEGER NOT NULL REFERENCES groups(id)
-            user_id INTEGER NOT NULL REFERENCES users(id)
-            admin BOOL NOT NULL
+            group_id INTEGER NOT NULL REFERENCES groups(id),
+            user_id INTEGER NOT NULL REFERENCES users(id),
+            admin BOOL NOT NULL,
             joined_at TIMESTAMP NOT NULL
         );
     `;
 
     try {
-        const res = await pool.query(createGroupsTableQuery)
+        const res = await pool.query(createGroupMemberTableQuery)
         console.log('🎉 group_member table created successfully')
     }
     catch (error) {
@@ -323,8 +343,8 @@ const createMatchesTable = async () => {
             FOREIGN KEY (user1_id) REFERENCES users(id),
             user2_id INTEGER NOT NULL,
             FOREIGN KEY (user2_id) REFERENCES users(id),
-            shared_hobbies_count INTEGER NOT NULL,
-            proximity_km FLOAT NOT NULL,
+            hScore FLOAT NOT NULL,
+            proximity_miles FLOAT NOT NULL,
             interaction_count INTEGER NOT NULL,
             compatibility_score FLOAT NOT NULL,
             suggested BOOL NOT NULL,
@@ -348,6 +368,7 @@ const createMatchesTable = async () => {
     }
 };
 
+/*
 const seedMatchesTable = async () => {    
     await createMatchesTable();
     matchesData.forEach( async (match) => {
@@ -374,21 +395,20 @@ const seedMatchesTable = async () => {
         };
     });
 };
+*/
 
 const createInsightsTable = async () => {
     const createInsightsTableQuery = `
         DROP TABLE IF EXISTS insights CASCADE;
 
         CREATE TABLE IF NOT EXISTS insights(
-            id SERIAL PRIMARY KEY,
-            user_id INTEGER NOT NULL,
+            user_id INTEGER PRIMARY KEY,
             total_matches INTEGER NOT NULL,
             active_hobbies INTEGER NOT NULL,
             events_joined INTEGER NOT NULL,
             events_hosted INTEGER NOT NULL,
             groups_joined INTEGER NOT NULL,
-            avg_match_score FLOAT NOT NULL,
-            total_interactions INTEGER NOT NULL,
+            avg_compatibility_score FLOAT NOT NULL,
             updated_at TIMESTAMP NOT NULL,
             FOREIGN KEY (user_id) REFERENCES users(id)
         );
@@ -403,6 +423,7 @@ const createInsightsTable = async () => {
     }
 };
 
+/*
 const seedInsightsTable = async () => {    
     await createInsightsTable();
     insightsData.forEach( async (insight) => {
@@ -417,7 +438,6 @@ const seedInsightsTable = async () => {
             insight.events_hosted,
             insight.groups_joined,
             insight.avg_match_score,
-            insight.total_interactions,
             insight.updated_at
         ];
         try {
@@ -428,23 +448,63 @@ const seedInsightsTable = async () => {
         };
     });
 };
+*/
 
-const baseTableSeed = async () => {
-    await seedUsersTable();
-    await seedHobbiesTable();
+const createZipcodesTable = async () => {
+    const createZipcodesTableQuery = `
+        DROP TABLE IF EXISTS zipcodes CASCADE;
+
+        CREATE TABLE IF NOT EXISTS zipcodes (
+            zipcode INTEGER PRIMARY KEY,
+            latitude FLOAT NOT NULL,
+            longitude FLOAT NOT NULL
+        );
+    `;
+
+    try {
+        const res = await pool.query(createZipcodesTableQuery)
+        console.log('🎉 zipcodes table created successfully')
+    }
+    catch (err) {
+        console.error('⚠️ error creating zipcodes table', err)
+    };
+
 };
 
-const dependentTableSeed = async () => {
-    await seedEventsTable();
-    await seedGroupsTable();
-    await seedInsightsTable();
-    await seedUserHobbyTable();
-    await seedMatchesTable();
+const seedZipcodesTable = async () => {    
+    await createZipcodesTable();
+    zipcodeData.forEach( async (zipcode) => {
+        const insertQuery = {
+            text: 'INSERT INTO zipcodes (zipcode, latitude, longitude) VALUES ($1, $2, $3)',
+        };
+        const values = [
+            zipcode.zipcode,
+            zipcode.lat,
+            zipcode.long
+        ];
+        try {
+            await pool.query(insertQuery, values);
+            //console.log(`✅ zipcode ${zipcode.zipcode} added successfully`);
+        } catch (err) {
+            console.error('⚠️ error inserting zipcode', err);
+        };
+    });
 };
 
-const main = async () =>{
-    await baseTableSeed();
-    await dependentTableSeed();
-}
+const main = async () => {
+    console.log("🚀 Starting table creation & seeding...");
+    await seedZipcodesTable();
+    await createUsersTable();
+    await createHobbiesTable();
+    await createUserHobbyTable();
+    await createEventsTable();
+    await createEventParticipationTable();
+    await createGroupsTable();
+    await createGroupMemberTable();
+    await createMatchesTable();
+    await createInsightsTable();
+
+    console.log("✅ All tables created successfully!");
+};
 
 main();

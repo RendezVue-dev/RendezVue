@@ -1,12 +1,12 @@
 import express from 'express'
 import path from 'path'
-import favicon from 'serve-favicon'
 import dotenv from 'dotenv'
-import EventsRouter from 'routes/events.js';
-import GroupsRouter from 'routes/groups.js';
-import HobbiesRouter from 'routes/hobbies.js';
-import UserHobbyRouter from 'routes/userHobby.js';
-import UsersRouter from 'routes/users.js';
+import EventsRouter from './routes/events.js'
+import GroupsRouter from './routes/groups.js'
+import HobbiesRouter from './routes/hobbies.js'
+import UserHobbyRouter from './routes/userHobby.js'
+import UsersRouter from './routes/users.js'
+import InsightsRouter from './routes/insights.js'
 
 dotenv.config()
 
@@ -42,3 +42,4 @@ app.use('/hobbies', HobbiesRouter);
 
 app.use('/userHobby', UserHobbyRouter);
 
+app.use('/insights', InsightsRouter);
