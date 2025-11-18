@@ -71,7 +71,7 @@ const deleteInsights = async (req, res) => {
             DELETE FROM insights WHERE user_id = $1
         `;
         const results = await pool.query(selectQuery, [userId]);
-        res.status(200).json(results.rows[0]);
+        res.status(200).json({ message: "Insights deleted successfully" });
     }
     catch(error){
         res.status(409).json( { error: error.message } );
