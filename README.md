@@ -76,6 +76,10 @@ Chat directly within the app to plan meetups, share updates, or simply talk abou
 
 Get data-driven insights into how well the user match with others based on shared interests, frequency of interaction, and proximity.
 
+### Database Implementation
+
+Not just one-on-one — join small groups of people who share your hobby for more social and inclusive meetups.
+
 ## Installation Instructions
 
 [instructions go here]
