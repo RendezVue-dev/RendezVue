@@ -1,0 +1,21 @@
+[
+  {
+    "name": "Nature Explorers",
+    "description": "For outdoor enthusiasts and hikers.",
+    "hobby_id": 1,
+    "created_by": 1,
+    "num_members": 50,
+    "created_at": "2025-09-19 09:00:00",
+    "modified_at": "2025-09-19 09:00:00"
+
+  },
+  {
+    "name": "Home Chefs United",
+    "description": "Share recipes and cooking inspiration!",
+    "hobby_id": 3,
+    "created_by": 3,
+    "num_members": 20,
+    "created_at": "2025-09-19 09:00:00",
+    "modified_at": "2025-09-19 09:00:00"
+  }
+]

@@ -1,0 +1,25 @@
+[
+  {
+    "user1_id": 1,
+    "user2_id": 2,
+    "shared_hobbies_count": 1,
+    "proximity_km": 80.5,
+    "interaction_count": 12,
+    "compatibility_score": 0.78,
+    "suggested": true,
+    "match": true,
+    "matched_at":  "2025-10-20 12:25:02",
+    "last_updated":  "2025-10-20 12:25:15"
+  },
+  {
+    "user1_id": 1,
+    "user2_id": 3,
+    "shared_hobbies_count": 2,
+    "proximity_km": 60.2,
+    "interaction_count": 0,
+    "compatibility_score": 0.1,
+    "suggested": false,
+    "match": false,
+    "last_updated":  "2025-11-10 07:25:02"
+  }
+]
