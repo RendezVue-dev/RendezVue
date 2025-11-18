@@ -1,4 +1,6 @@
 import { pool } from "../config/database.js";
+import InsightService from "../services/insightService.js";
+import FormatCurrentDateTimeService from "../services/formatCurrentTimeService.js";
 
 const formatCurrentDateTime = () => {
     const now = new Date();
@@ -62,10 +64,11 @@ const createGroup = async (req, res) =>{
 const updateGroup = async (req, res) => {
     try{
         const groupId = parseInt(req.params.id);
+        const currentTime = FormatCurrentDateTimeService.formatCurrentDateTime();
         const { name, description, hobby_id, num_members, created_by } = req.body;
         const results = await pool.query(`
-            UPDATE groups SET name = $1, description = $2, hobby_id = $3, num_members = $4, created_by = $5 WHERE id = $6`,
-            [ name, description, hobby_id, num_members, created_by ]
+            UPDATE groups SET name = $1, description = $2, hobby_id = $3, num_members = $4, created_by = $5, modified_at = $6 WHERE id = $7`,
+            [ name, description, hobby_id, num_members, created_by, currentTime, groupId]
         );
         res.status(200).json(results.rows[0]);
     }
@@ -78,9 +81,9 @@ const updateGroup = async (req, res) => {
 const deleteGroup = async (req, res) => {
     try{
         const groupId = parseInt(req.params.id);
-        const results = await pool.query('DELETE FROM groups WHERE id = $1', [hobbyId]
+        const results = await pool.query('DELETE FROM groups WHERE id = $1', [groupId]
         );
-        res.status(200).json(results.rows[0]);
+        res.status(200).json({ message: "Group deleted successfully" });
     }
     catch(error){
         res.status(409).json( { error: error.message } );

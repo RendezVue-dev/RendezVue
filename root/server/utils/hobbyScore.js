@@ -5,7 +5,7 @@ const hobbyScore = async (user1_id, user2_id) => {
   const hobbiesUser1 = await pool.query(`
       SELECT COUNT(*) AS hobby_num
       FROM user_hobby
-      WHERE user_id == $1
+      WHERE user_id = $1
   `, [user1_id]);
 
   const hobbiesUser1Size = Number(hobbiesUser1.rows[0].hobby_num);
@@ -13,7 +13,7 @@ const hobbyScore = async (user1_id, user2_id) => {
   const hobbiesUser2 = await pool.query(`
       SELECT COUNT(*) AS hobby_num
       FROM user_hobby
-      WHERE user_id == $1
+      WHERE user_id = $1
   `, [user2_id]);
 
   const hobbiesUser2Size = Number(hobbiesUser2.rows[0].hobby_num);
@@ -28,7 +28,7 @@ const hobbyScore = async (user1_id, user2_id) => {
       JOIN (
         SELECT *
         FROM user_hobby
-        WHERE user_id == $2
+        WHERE user_id = $2
       ) AS u2
       ON u1.hobby_id = u2.hobby_id
   `, [user1_id, user2_id]);
