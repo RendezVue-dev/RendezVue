@@ -78,7 +78,10 @@ Get data-driven insights into how well the user match with others based on share
 
 ### ✅ Database Implementation
 
-Not just one-on-one — join small groups of people who share your hobby for more social and inclusive meetups.
+Database and server side implemented completely
+
+<img src="Database.gif" />
+
 
 ## Installation Instructions
 
