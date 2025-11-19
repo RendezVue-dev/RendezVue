@@ -1,4 +1,6 @@
 import { pool } from "../config/database.js";
+import MatchService from "../services/matchService.js";
+import InsightService from "../services/insightService.js";
 
 const formatCurrentDateTime = () => {
     const now = new Date();
@@ -66,6 +68,8 @@ const createUserHobby = async (req, res) =>{
             RETURNING *`,
             [user_id, hobby_id]
         );
+        await MatchService.updateMatchesData(user_id);
+        await InsightService.updateInsights(user_id);
         res.status(201).json(results.rows[0]);
     }
     catch(error)
@@ -79,8 +83,9 @@ const deleteUserHobby = async (req, res) => {
     try{
         const {user_id, hobby_id} = req.body;
         const results = await pool.query('DELETE FROM user_hobby WHERE user_id = $1 AND hobby_id = $2', [user_id, hobby_id]);
-        res.status(200).json(results.rows[0]);
-    }
+        await MatchService.updateMatchesData(user_id);
+        await InsightService.updateInsights(user_id);
+        res.status(200).json({ message: "User hobby deleted successfully" });    }
     catch(error){
         res.status(409).json( { error: error.message } );
     }

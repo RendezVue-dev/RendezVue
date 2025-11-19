@@ -41,7 +41,7 @@ const createUser = async (req, res) =>{
             RETURNING *`,
             [first_name, last_name, username, age, city, state, zipcode, bio || null, currentTime, currentTime]
         );
-        await MatchService.generateMatches(Number(results.rows[0].id));
+        await MatchService.generateMatchesDataForNewUser(Number(results.rows[0].id));
         await InsightService.createInsightForNewUser(Number(results.rows[0].id));
         res.status(201).json(results.rows[0]);
     }
@@ -61,6 +61,8 @@ const updateUser = async (req, res) => {
             UPDATE users SET first_name = $1, last_name = $2, username = $3, age = $4, city = $5, state = $6, zipcode = $7, bio = $8, modified_at = $9 WHERE id = $10`,
             [first_name, last_name, username, age, city, state, zipcode, bio || null, currentTime, userId]
         );
+        await MatchService.updateMatchesData(userId);
+        await InsightService.updateInsights(userId);
         res.status(200).json(results.rows[0]);
     }
     catch(error){

@@ -137,7 +137,7 @@ const createUserHobbyTable = async () => {
             user_id INTEGER NOT NULL,
             hobby_id INTEGER NOT NULL,
             PRIMARY KEY (user_id, hobby_id),
-            FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
             FOREIGN KEY (hobby_id) REFERENCES hobbies(id) ON UPDATE CASCADE
         );
     `;
@@ -179,7 +179,7 @@ const createEventsTable = async () => {
         CREATE TABLE IF NOT EXISTS events (
             id SERIAL PRIMARY KEY,
             creator_id INTEGER NOT NULL ,
-            FOREIGN KEY (creator_id) REFERENCES users(id),
+            FOREIGN KEY (creator_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
             hobby_id INTEGER NOT NULL,
             FOREIGN KEY (hobby_id) REFERENCES hobbies(id),
             title VARCHAR(200) NOT NULL,
@@ -254,7 +254,7 @@ const createEventParticipationTable = async () => {
         const res = await pool.query(createEventParticipationTableQuery)
         console.log('🎉 event_participation table created successfully')
     }
-    catch (error) {
+    catch (err) {
         console.error('⚠️ error creating event_participation table', err)
     }
 };
@@ -271,7 +271,7 @@ const createGroupsTable = async () => {
             num_members INTEGER NOT NULL,
             FOREIGN KEY (hobby_id) REFERENCES hobbies(id),
             created_by INTEGER NOT NULL ,
-            FOREIGN KEY (created_by) REFERENCES users(id),
+            FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
             created_at TIMESTAMP NOT NULL,
             modified_at TIMESTAMP NOT NULL
         );
@@ -319,7 +319,7 @@ const createGroupMemberTable = async () => {
 
         CREATE TABLE IF NOT EXISTS group_member(
             group_id INTEGER NOT NULL REFERENCES groups(id),
-            user_id INTEGER NOT NULL REFERENCES users(id),
+            user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
             admin BOOL NOT NULL,
             joined_at TIMESTAMP NOT NULL
         );
@@ -329,7 +329,7 @@ const createGroupMemberTable = async () => {
         const res = await pool.query(createGroupMemberTableQuery)
         console.log('🎉 group_member table created successfully')
     }
-    catch (error) {
+    catch (err) {
         console.error('⚠️ error creating group_member table', err)
     }
 };
@@ -340,12 +340,11 @@ const createMatchesTable = async () => {
 
         CREATE TABLE IF NOT EXISTS matches(
             user1_id INTEGER NOT NULL,
-            FOREIGN KEY (user1_id) REFERENCES users(id),
+            FOREIGN KEY (user1_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
             user2_id INTEGER NOT NULL,
-            FOREIGN KEY (user2_id) REFERENCES users(id),
+            FOREIGN KEY (user2_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
             hScore FLOAT NOT NULL,
             proximity_miles FLOAT NOT NULL,
-            interaction_count INTEGER NOT NULL,
             compatibility_score FLOAT NOT NULL,
             suggested BOOL NOT NULL,
             match BOOL NOT NULL,
@@ -410,7 +409,7 @@ const createInsightsTable = async () => {
             groups_joined INTEGER NOT NULL,
             avg_compatibility_score FLOAT NOT NULL,
             updated_at TIMESTAMP NOT NULL,
-            FOREIGN KEY (user_id) REFERENCES users(id)
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
         );
     `;
 
@@ -452,8 +451,6 @@ const seedInsightsTable = async () => {
 
 const createZipcodesTable = async () => {
     const createZipcodesTableQuery = `
-        DROP TABLE IF EXISTS zipcodes CASCADE;
-
         CREATE TABLE IF NOT EXISTS zipcodes (
             zipcode INTEGER PRIMARY KEY,
             latitude FLOAT NOT NULL,
@@ -475,7 +472,7 @@ const seedZipcodesTable = async () => {
     await createZipcodesTable();
     zipcodeData.forEach( async (zipcode) => {
         const insertQuery = {
-            text: 'INSERT INTO zipcodes (zipcode, latitude, longitude) VALUES ($1, $2, $3)',
+            text: 'INSERT INTO zipcodes (zipcode, latitude, longitude) VALUES ($1, $2, $3) ON CONFLICT (zipcode) DO NOTHING;',
         };
         const values = [
             zipcode.zipcode,
@@ -493,7 +490,7 @@ const seedZipcodesTable = async () => {
 
 const main = async () => {
     console.log("🚀 Starting table creation & seeding...");
-    await seedZipcodesTable();
+    //await seedZipcodesTable();
     await createUsersTable();
     await createHobbiesTable();
     await createUserHobbyTable();

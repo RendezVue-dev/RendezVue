@@ -30,13 +30,13 @@ const getInsightByUserId = async (req, res) => {
 //POST insights/
 const createInsight = async (req, res) =>{
     try{
-        const { user_id, total_matches, active_hobbies, events_joined, events_hosted, groups_joined, avg_match_score, total_interactions } = req.body;
+        const { user_id, total_matches, active_hobbies, events_joined, events_hosted, groups_joined, avg_compatibility_score } = req.body;
         const currentTime = formatCurrentDateTime();
         const results = await pool.query(`
-            INSERT INTO insights (user_id, total_matches, active_hobbies, events_joined, events_hosted, groups_joined, avg_match_score, total_interactions, updated_at)
+            INSERT INTO insights (user_id, total_matches, active_hobbies, events_joined, events_hosted, groups_joined, avg_compatibility_score, updated_at)
             VALUES($1, $2, $3, $4, $5, $6, $7, $8)
             RETURNING *`,
-            [ user_id, total_matches, active_hobbies, events_joined, events_hosted, groups_joined, avg_match_score, total_interactions, currentTime]
+            [ user_id, total_matches, active_hobbies, events_joined, events_hosted, groups_joined, avg_compatibility_score, currentTime]
         );
         res.status(201).json(results.rows[0]);
     }
@@ -50,11 +50,11 @@ const createInsight = async (req, res) =>{
 const updateInsight = async (req, res) => {
     try{
         const userId = parseInt(req.params.id);
-        const { total_matches, active_hobbies, events_joined, events_hosted, groups_joined, avg_match_score, total_interactions } = req.body;
+        const { total_matches, active_hobbies, events_joined, events_hosted, groups_joined, avg_compatibility_score } = req.body;
         const currentTime = formatCurrentDateTime();
         const results = await pool.query(`
-            UPDATE insights SET total_matches = $1, active_hobbies = $2, events_joined = $3, events_hosted = $4, groups_joined = $5, avg_match_score = $6, total_interactions = $7, updated_at = $8 WHERE user_id`,
-            [ total_matches, active_hobbies, events_joined, events_hosted, groups_joined, avg_match_score, total_interactions, currentTime, userId ]
+            UPDATE insights SET total_matches = $1, active_hobbies = $2, events_joined = $3, events_hosted = $4, groups_joined = $5, avg_compatibility_score = $6, updated_at = $7 WHERE user_id = $8`,
+            [ total_matches, active_hobbies, events_joined, events_hosted, groups_joined, avg_compatibility_score, currentTime, userId ]
         );
         res.status(200).json(results.rows[0]);
     }
@@ -68,11 +68,10 @@ const deleteInsights = async (req, res) => {
     try{
         const userId = parseInt(req.params.id);
         const selectQuery = `
-            SELECT * FROM insights
-            WHERE user_id = $1 
+            DELETE FROM insights WHERE user_id = $1
         `;
         const results = await pool.query(selectQuery, [userId]);
-        res.status(200).json(results.rows[0]);
+        res.status(200).json({ message: "Insights deleted successfully" });
     }
     catch(error){
         res.status(409).json( { error: error.message } );
