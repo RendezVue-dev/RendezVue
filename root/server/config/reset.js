@@ -409,7 +409,7 @@ const createInsightsTable = async () => {
             groups_joined INTEGER NOT NULL,
             avg_compatibility_score FLOAT NOT NULL,
             updated_at TIMESTAMP NOT NULL,
-            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
         );
     `;
 

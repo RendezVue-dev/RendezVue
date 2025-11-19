@@ -10,7 +10,7 @@ import UsersRouter from './routes/users.js'
 import InsightsRouter from './routes/insights.js'
 import MatchesRouter from './routes/matches.js'
 import EventParticipationRouter from './routes/eventParticipation.js'
-import GroupMemberRouter from './routes/groupMember.js'
+import GroupMemberRouter from './routes/groupMembers.js'
 
 dotenv.config()
 
