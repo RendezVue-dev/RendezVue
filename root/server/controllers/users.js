@@ -2,6 +2,7 @@ import { pool } from "../config/database.js";
 import MatchService from '../services/matchService.js'
 import InsightService from '../services/insightService.js'
 import FormatCurrentDateTimeService from '../services/formatCurrentTimeService.js'
+import bcrypt from 'bcrypt';
 
 //GET users/
 const getAllUsers = async (req, res) => {
@@ -33,13 +34,15 @@ const getUserById = async (req, res) =>{
 //POST users/
 const createUser = async (req, res) =>{
     try{
-        const { first_name, last_name, username, age, city, state, zipcode, bio } = req.body;
+        const { first_name, last_name, username, email, password, age, city, state, zipcode, bio } = req.body;
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
         const currentTime = FormatCurrentDateTimeService.formatCurrentDateTime();
         const results = await pool.query(`
-            INSERT INTO users (first_name, last_name, username, age, city, state, zipcode, bio, created_at, modified_at)
-            VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+            INSERT INTO users (first_name, last_name, username, email, password, age, city, state, zipcode, bio, created_at, modified_at)
+            VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
             RETURNING *`,
-            [first_name, last_name, username, age, city, state, zipcode, bio || null, currentTime, currentTime]
+            [first_name, last_name, username, email, hashedPassword, age, city, state, zipcode, bio || null, currentTime, currentTime]
         );
         await MatchService.generateMatchesDataForNewUser(Number(results.rows[0].id));
         await InsightService.createInsightForNewUser(Number(results.rows[0].id));
@@ -47,6 +50,7 @@ const createUser = async (req, res) =>{
     }
     catch(error)
     {
+        console.error('Error creating user:', error);
         res.status(409).json( { error: error.message } );
     }
 };

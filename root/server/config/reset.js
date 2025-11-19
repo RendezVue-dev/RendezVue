@@ -36,6 +36,8 @@ const createUsersTable = async () => {
             first_name VARCHAR(100) NOT NULL,
             last_name VARCHAR(100) NOT NULL,
             username VARCHAR(100) NOT NULL,
+            email VARCHAR(100) NOT NULL UNIQUE,
+            password VARCHAR(100) NOT NULL,
             age INTEGER NOT NULL,
             city VARCHAR(50) NOT NULL,
             state VARCHAR(10) NOT NULL,
@@ -451,6 +453,8 @@ const seedInsightsTable = async () => {
 
 const createZipcodesTable = async () => {
     const createZipcodesTableQuery = `
+        DROP TABLE IF EXISTS zipcodes CASCADE;
+
         CREATE TABLE IF NOT EXISTS zipcodes (
             zipcode INTEGER PRIMARY KEY,
             latitude FLOAT NOT NULL,
@@ -470,27 +474,41 @@ const createZipcodesTable = async () => {
 
 const seedZipcodesTable = async () => {    
     await createZipcodesTable();
-    zipcodeData.forEach( async (zipcode) => {
-        const insertQuery = {
-            text: 'INSERT INTO zipcodes (zipcode, latitude, longitude) VALUES ($1, $2, $3) ON CONFLICT (zipcode) DO NOTHING;',
-        };
-        const values = [
-            zipcode.zipcode,
-            zipcode.lat,
-            zipcode.long
-        ];
+    
+    console.log(`📦 Inserting ${zipcodeData.length} zipcodes in batches...`);
+    const batchSize = 1000;
+    
+    for (let i = 0; i < zipcodeData.length; i += batchSize) {
+        const batch = zipcodeData.slice(i, i + batchSize);
+        const values = [];
+        const placeholders = [];
+        
+        batch.forEach((zipcode, index) => {
+            const offset = index * 3;
+            placeholders.push(`($${offset + 1}, $${offset + 2}, $${offset + 3})`);
+            values.push(zipcode.zipcode, zipcode.lat, zipcode.long);
+        });
+        
+        const insertQuery = `
+            INSERT INTO zipcodes (zipcode, latitude, longitude) 
+            VALUES ${placeholders.join(', ')}
+            ON CONFLICT (zipcode) DO NOTHING;
+        `;
+        
         try {
             await pool.query(insertQuery, values);
-            //console.log(`✅ zipcode ${zipcode.zipcode} added successfully`);
+            console.log(`✅ Inserted batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(zipcodeData.length / batchSize)}`);
         } catch (err) {
-            console.error('⚠️ error inserting zipcode', err);
-        };
-    });
+            console.error('⚠️ error inserting zipcode batch', err);
+        }
+    }
+    
+    console.log(`✅ All ${zipcodeData.length} zipcodes inserted successfully!`);
 };
 
 const main = async () => {
     console.log("🚀 Starting table creation & seeding...");
-    //await seedZipcodesTable();
+    await seedZipcodesTable();
     await createUsersTable();
     await createHobbiesTable();
     await createUserHobbyTable();
