@@ -54,11 +54,13 @@ Discover trending hobbies and create hobbies for ourselves.
 
 Not just one-on-one — join small groups of people who share your hobby for more social and inclusive meetups.
 
+![Group Matching](Groups.gif)
+
 ### ✅ Personalized Profiles
 
-Show off the user's hobbies and information their personalized profile. They can also upload photos or achievements related to their interests.
+Show off the user's hobbies and information their personalized profile. They can also upload photos or achievements related to their interests. (further development)
 
-[gif goes here]
+![Profile](Profile.gif)
 
 ### ✅ User Insights 
 
