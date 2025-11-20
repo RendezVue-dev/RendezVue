@@ -120,18 +120,45 @@ Database and server side implemented completely
 
 ## Installation Instructions
 
-- Open a terminal:
-
-```
-    cd root/client
-    npm run build
-    npm run dev
-```
-
-- Then open another terminal:
-
-```
-    cd root/server
+Installation & Setup
+### **Backend Setup**
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/RendezVue-dev/RendezVue.git
+   cd RendezVue
+   ```
+2. Install dependencies:
+   ```sh
+   cd server
+   npm install
+   ```
+3. Create `.env` file:
+   ```sh
+    PGDATABASE=
+    PGHOST=
+    PGPASSWORD=
+    PGPORT=
+    PGUSER="rendezvue_user"
+   ```
+4. Set up the database:
+   ```sh
     npm run reset
-    npm start
-```
+   ```
+5. Start the backend server:
+   ```sh
+    npm run start
+   ```
+
+### **Frontend Setup**
+1. Navigate to the frontend directory:
+   ```sh
+   cd client
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Start the frontend server:
+   ```sh
+   npm run dev
+   ```
