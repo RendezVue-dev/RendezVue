@@ -12,12 +12,18 @@ dotenv.config({ path: path.join(__dirname, './.env') });
 export default defineConfig({
   plugins: [react()],
   server: {
-    proxy: {
+    proxy: process.env.NODE_ENV === "development" ? {
       '/api': {
-        target: process.env.API_URL || "https://rendezvue-itds.onrender.com",
+        target: process.env.API_URL,
         changeOrigin: true,
         secure: false,
       },
-    },
-  },
+    } : {
+      '/api': {
+        target: "https://rendezvue-itds.onrender.com",
+        changeOrigin: true,
+        secure: false,
+      },
+    }
+  }
 })
