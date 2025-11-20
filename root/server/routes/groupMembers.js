@@ -11,7 +11,7 @@ router.get('/group/:groupId', GroupMemberController.getGroupMemberByGroupId);
 
 router.post('/', GroupMemberController.createGroupMember);
 
-router.patch('/:groupId/:userId', GroupMemberController.deleteGroupMember);
+router.patch('/:groupId/:userId', GroupMemberController.updateGroupMember);
 
 router.delete('/:groupId/:userId', GroupMemberController.deleteGroupMember);
 

@@ -42,7 +42,8 @@ const getHobbyById = async (req, res) =>{
 //POST hobbies/
 const createHobby = async (req, res) =>{
     try{
-        const { name, description, population } = req.body;
+        const { name, description } = req.body;
+        const population = 0; // Initialize population to 0 when hobby is created
         const currentTime = formatCurrentDateTime();
         const results = await pool.query(`
             INSERT INTO hobbies (name, description, population, created_at)
@@ -78,9 +79,8 @@ const updateHobby = async (req, res) => {
 const deleteHobby = async (req, res) => {
     try{
         const hobbyId = parseInt(req.params.id);
-        const results = await pool.query('DELETE FROM hobbies WHERE id = $1', [hobbyId]
-        );
-        res.status(200).json(results.rows[0]);
+        await pool.query('DELETE FROM hobbies WHERE id = $1', [hobbyId]);
+        res.status(200).json({ message: "Hobby deleted successfully" });
     }
     catch(error){
         res.status(409).json( { error: error.message } );

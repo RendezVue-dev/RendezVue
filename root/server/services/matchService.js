@@ -4,10 +4,10 @@ import FormatCurrentTimeService from "./formatCurrentTimeService.js"
 import HobbyScore from "../utils/hobbyScore.js"
 
 const calculateCompatibilityScore = (hobbyScore, distanceMiles) => {
-    const distanceScore = 1 / (1 + distanceMiles);
+    const distanceScore = distanceMiles <= 100 ? 1 : 0;
 
     // weighted compatibility
-    const compatibilityScore = 0.4 * hobbyScore + 0.6 * distanceScore;
+    const compatibilityScore = 0.6 * hobbyScore + 0.4 * distanceScore;
     return compatibilityScore;
 };
 
@@ -40,13 +40,17 @@ const generateMatchesDataForNewUser = async (user_id) => {
         const hScore = await HobbyScore.hobbyScore(user_id, other.id);
         const currentTime = FormatCurrentTimeService.formatCurrentDateTime();
         const compatibilityScore = calculateCompatibilityScore(hScore, distance);
+        
+        // Normalize user IDs to ensure user1_id < user2_id for unique constraint
+        const [id1, id2] = user_id < other.id ? [user_id, other.id] : [other.id, user_id];
 
         await pool.query(
             `
             INSERT INTO matches (user1_id, user2_id, hScore, proximity_miles, compatibility_score, suggested, match, matched_at, last_updated)
                 VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+                ON CONFLICT DO NOTHING
                 RETURNING *
-            `, [user_id, other.id, hScore, distance, compatibilityScore, compatibilityScore >= 0.5 ? true : false, false, null, currentTime]
+            `, [id1, id2, hScore, distance, compatibilityScore, compatibilityScore >= 0.5 ? true : false, false, null, currentTime]
         );
     }
 }
@@ -83,15 +87,31 @@ const updateMatchesData = async (user_id) => {
             const compatibilityScore = calculateCompatibilityScore(hScore, distance);
             const [id1, id2] = user_id < other.id ? [user_id, other.id] : [other.id, user_id];
 
-            await pool.query(
-                `   UPDATE matches SET hScore = $3, proximity_miles = $4, compatibility_score = $5, suggested = $6, last_updated = $7 WHERE user1_id = $1 AND user2_id = $2 
-                    RETURNING *
-                `, [id1, id2, hScore, distance, compatibilityScore, compatibilityScore >= 0.5 ? true : false, currentTime]
+            // Check if match exists, then update or insert
+            const existingMatch = await pool.query(
+                `SELECT * FROM matches WHERE user1_id = $1 AND user2_id = $2`,
+                [id1, id2]
             );
+
+            if (existingMatch.rows.length > 0) {
+                await pool.query(
+                    `UPDATE matches SET hScore = $3, proximity_miles = $4, compatibility_score = $5, suggested = $6, last_updated = $7 
+                     WHERE user1_id = $1 AND user2_id = $2
+                     RETURNING *`,
+                    [id1, id2, hScore, distance, compatibilityScore, compatibilityScore >= 0.5 ? true : false, currentTime]
+                );
+            } else {
+                await pool.query(
+                    `INSERT INTO matches (user1_id, user2_id, hScore, proximity_miles, compatibility_score, suggested, match, matched_at, last_updated)
+                     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+                     RETURNING *`,
+                    [id1, id2, hScore, distance, compatibilityScore, compatibilityScore >= 0.5 ? true : false, false, null, currentTime]
+                );
+            }
         }
-        } catch (err) {
-            console.error('Error updating match:', err);
-        }
+    } catch (err) {
+        console.error('Error updating match:', err);
+    }
 };
 
 export default {generateMatchesDataForNewUser, updateMatchesData};
