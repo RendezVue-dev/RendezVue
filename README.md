@@ -18,9 +18,9 @@ This application is inspired by Dylan's hobby of ballroom dancing. He always wan
 
 ## Tech Stack
 
-Frontend: React.js, HTML, CSS, TailwindCSS, PicoCSS
+Frontend: React.js, HTML, CSS, TailwindCSS
 
-Backend: Express.js, PostgreSQL, Google Map API
+Backend: Express.js, PostgreSQL
 
 ## Features
 

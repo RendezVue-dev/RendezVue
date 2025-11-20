@@ -32,7 +32,7 @@ app.get("/", (req, res) =>{
 
 
 if (process.env.NODE_ENV === 'production') {
-    app.get('/*', (_, res) =>
+    app.get('/', (_, res) =>
         res.sendFile(path.resolve('public', 'index.html'))
     )
 }
