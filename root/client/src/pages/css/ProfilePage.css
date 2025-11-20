@@ -1,0 +1,337 @@
+/* Profile Page - Tinder Theme */
+
+.profile-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(253, 80, 104, 0.05) 0%, rgba(255, 138, 128, 0.05) 100%);
+  border-radius: 20px;
+}
+
+.profile-header h1 {
+  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+}
+
+/* Personal Information Section */
+.personal-info-section {
+  background-color: var(--bg-primary);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px var(--shadow-light);
+  border: 1px solid var(--border-light);
+  margin-bottom: 2rem;
+}
+
+.personal-info-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border-light);
+}
+
+.user-avatar-large {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--tinder-pink) 0%, var(--tinder-pink-dark) 100%);
+  color: var(--text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  box-shadow: 0 4px 16px var(--shadow-pink);
+  flex-shrink: 0;
+}
+
+.user-info-header {
+  flex: 1;
+}
+
+.user-name-large {
+  font-size: 2rem;
+  margin: 0 0 0.25rem 0;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.user-username-large {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.personal-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.info-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-value {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.bio-section {
+  grid-column: 1 / -1;
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--border-light);
+}
+
+.bio-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.bio-value {
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+  padding: 1rem;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  font-style: italic;
+}
+
+/* Hobbies Section */
+.hobbies-section {
+  background-color: var(--bg-primary);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px var(--shadow-light);
+  border: 1px solid var(--border-light);
+}
+
+.hobbies-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border-light);
+}
+
+.hobbies-section-header h2 {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+.add-hobby-btn {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, var(--tinder-pink) 0%, var(--tinder-pink-dark) 100%);
+  color: var(--text-white);
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px var(--shadow-pink);
+}
+
+.add-hobby-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-pink);
+}
+
+.available-hobbies-container {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: var(--bg-secondary);
+  border-radius: 16px;
+  border: 1px solid var(--border-light);
+}
+
+.available-hobbies-container h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.available-hobbies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.available-hobby-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.available-hobby-item:hover {
+  border-color: var(--tinder-pink);
+  box-shadow: 0 2px 8px var(--shadow-light);
+}
+
+.available-hobby-info {
+  flex: 1;
+}
+
+.available-hobby-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.available-hobby-population {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.add-hobby-small-btn {
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, var(--tinder-pink) 0%, var(--tinder-pink-dark) 100%);
+  color: var(--text-white);
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.add-hobby-small-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px var(--shadow-pink);
+}
+
+.user-hobbies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.user-hobby-card {
+  background-color: var(--bg-primary);
+  border: 2px solid var(--border-light);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-hobby-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px var(--shadow-medium);
+  border-color: var(--tinder-pink);
+}
+
+.user-hobby-info {
+  flex: 1;
+}
+
+.user-hobby-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.user-hobby-population {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.remove-hobby-btn {
+  padding: 0.75rem 1.25rem;
+  background-color: #ff4444;
+  color: var(--text-white);
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 68, 68, 0.3);
+}
+
+.remove-hobby-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4);
+  background-color: #ff3333;
+}
+
+.no-hobbies-message {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 1rem;
+  }
+
+  .personal-info-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .personal-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hobbies-section-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .add-hobby-btn {
+    width: 100%;
+  }
+
+  .user-hobbies-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .user-hobby-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .remove-hobby-btn {
+    width: 100%;
+  }
+}
+

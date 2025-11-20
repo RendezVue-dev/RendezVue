@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-
+import './css/LoginPage.css';
 const LoginPage = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -43,7 +43,14 @@ const LoginPage = () => {
 
   return (
     <div className="container">
-      <h1>Login</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <div className="login-header">
+          <h1>Login</h1>
+          <p className="login-subtitle">
+            Login to your account to continue.
+          </p>
+        </div>
+      </div>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />

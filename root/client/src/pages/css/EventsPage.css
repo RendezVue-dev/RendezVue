@@ -1,0 +1,590 @@
+.events-container {
+  padding: 2rem;
+  max-width: 1400px;
+}
+
+.events-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(253, 80, 104, 0.05) 0%, rgba(255, 138, 128, 0.05) 100%);
+  border-radius: 20px;
+}
+
+.events-header h1 {
+  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+}
+
+.events-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.events-header-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.view-mode-toggle {
+  display: flex;
+  gap: 0.5rem;
+  background-color: var(--bg-primary);
+  padding: 0.25rem;
+  border-radius: 25px;
+  box-shadow: 0 2px 8px var(--shadow-light);
+}
+
+.view-mode-toggle button {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 600;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-mode-toggle button.active {
+  background: linear-gradient(135deg, var(--tinder-pink) 0%, var(--tinder-pink-dark) 100%);
+  color: var(--text-white);
+  box-shadow: 0 2px 8px var(--shadow-pink);
+}
+
+.create-event-btn {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, var(--tinder-pink) 0%, var(--tinder-pink-dark) 100%);
+  color: var(--text-white);
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px var(--shadow-pink);
+}
+
+.create-event-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-pink);
+}
+
+.create-event-form {
+  background-color: var(--bg-primary);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px var(--shadow-light);
+  margin-bottom: 2rem;
+  border: 1px solid var(--border-light);
+}
+
+.create-event-form h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-light);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--tinder-pink);
+  box-shadow: 0 0 0 3px rgba(253, 80, 104, 0.1);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--tinder-pink) 0%, var(--tinder-pink-dark) 100%);
+  color: var(--text-white);
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px var(--shadow-pink);
+  margin-top: 1rem;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-pink);
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.event-card {
+  background-color: var(--bg-primary);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  border: 2px solid var(--border-light);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px var(--shadow-medium);
+  border-color: var(--tinder-pink);
+}
+
+.event-card.host-event {
+  border-left: 4px solid var(--tinder-pink);
+  background: linear-gradient(135deg, rgba(253, 80, 104, 0.02) 0%, rgba(255, 138, 128, 0.02) 100%);
+}
+
+.event-header {
+  margin-bottom: 1rem;
+}
+
+.event-badge {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.host-badge {
+  background: linear-gradient(135deg, var(--tinder-pink) 0%, var(--tinder-pink-dark) 100%);
+  color: var(--text-white);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.hobby-badge {
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid var(--border-light);
+}
+
+.full-badge {
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.2) 0%, rgba(255, 0, 0, 0.1) 100%);
+  color: #d32f2f;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.event-card.event-full {
+  opacity: 0.85;
+  border: 2px solid rgba(255, 0, 0, 0.2);
+}
+
+.event-title {
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-primary);
+}
+
+.event-description {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.event-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+.event-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.detail-icon {
+  font-size: 1.2rem;
+}
+
+.view-participants-btn {
+  padding: 0.75rem 1rem;
+  background-color: var(--bg-secondary);
+  color: var(--tinder-pink);
+  border: 2px solid var(--tinder-pink);
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.view-participants-btn:hover {
+  background: linear-gradient(135deg, var(--tinder-pink) 0%, var(--tinder-pink-dark) 100%);
+  color: var(--text-white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-pink);
+}
+
+.event-actions {
+  margin-top: auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.join-event-btn {
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, var(--tinder-pink) 0%, var(--tinder-pink-dark) 100%);
+  color: var(--text-white);
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-shadow: 0 2px 8px var(--shadow-pink);
+}
+
+.join-event-btn:hover:not(.disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-pink);
+}
+
+.join-event-btn.disabled {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none;
+}
+
+.leave-event-btn {
+  padding: 0.75rem 1rem;
+  background-color: var(--bg-secondary);
+  color: #d32f2f;
+  border: 2px solid #d32f2f;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.leave-event-btn:hover {
+  background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+  color: var(--text-white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+}
+
+.no-events {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background-color: var(--bg-primary);
+  border-radius: 20px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 2px solid var(--border-light);
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.participants-list {
+  padding: 1.5rem;
+}
+
+.participants-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border-light);
+}
+
+.participants-count {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.capacity-info {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.participants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.participant-card {
+  background-color: var(--bg-secondary);
+  border-radius: 16px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 2px solid var(--border-light);
+  transition: all 0.3s ease;
+}
+
+.participant-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-medium);
+  border-color: var(--tinder-pink);
+}
+
+.participant-card.host-card {
+  background: linear-gradient(135deg, rgba(253, 80, 104, 0.05) 0%, rgba(255, 138, 128, 0.05) 100%);
+  border-left: 4px solid var(--tinder-pink);
+}
+
+.participant-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--tinder-pink) 0%, var(--tinder-pink-dark) 100%);
+  color: var(--text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px var(--shadow-pink);
+}
+
+.participant-card.host-card .participant-avatar {
+  background: linear-gradient(135deg, var(--tinder-pink) 0%, var(--tinder-pink-dark) 100%);
+  box-shadow: 0 2px 8px var(--shadow-pink);
+}
+
+.participant-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.participant-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.participant-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.role-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-block;
+  width: fit-content;
+}
+
+.role-badge.host {
+  background: linear-gradient(135deg, var(--tinder-pink) 0%, var(--tinder-pink-dark) 100%);
+  color: var(--text-white);
+  box-shadow: 0 2px 4px var(--shadow-pink);
+}
+
+.role-badge.attendee {
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+}
+
+.registered-time {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.participants-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.participants-table thead {
+  background-color: var(--bg-secondary);
+}
+
+.participants-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-light);
+}
+
+.participants-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-secondary);
+}
+
+.participants-table tbody tr:hover {
+  background-color: var(--bg-secondary);
+}
+
+.no-participants {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .events-container {
+    padding: 1rem;
+  }
+
+  .events-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .events-header-actions {
+    flex-direction: column;
+  }
+
+  .view-mode-toggle {
+    width: 100%;
+  }
+
+  .view-mode-toggle button {
+    flex: 1;
+  }
+
+  .create-event-form {
+    padding: 1.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    max-height: 90vh;
+  }
+
+  .participants-table {
+    font-size: 0.9rem;
+  }
+
+  .participants-table th,
+  .participants-table td {
+    padding: 0.75rem;
+  }
+}
+

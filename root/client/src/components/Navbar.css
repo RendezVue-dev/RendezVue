@@ -1,0 +1,218 @@
+/* Tinder-inspired Navbar Styles */
+
+nav.container {
+  background: linear-gradient(135deg, #fd5068 0%, #ff8a80 50%, #ff6b9d 100%);
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 20px rgba(253, 80, 104, 0.3);
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+}
+
+nav.container ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+nav.container ul:first-child {
+  flex: 1;
+}
+
+nav.container ul li {
+  margin: 0;
+}
+
+/* Logo/Brand Styling */
+nav.container ul:first-child li strong {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+nav.container ul:first-child li strong a {
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+nav.container ul:first-child li strong a:hover {
+  transform: scale(1.05);
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Navigation Links */
+nav.container ul:last-child li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover effect for nav links */
+nav.container ul:last-child li a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 25px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+nav.container ul:last-child li a:hover::before {
+  opacity: 1;
+}
+
+nav.container ul:last-child li a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Active link styling */
+nav.container ul:last-child li a:active {
+  transform: translateY(0);
+}
+
+/* Active link state */
+nav.container ul:last-child li a.active {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  font-weight: 700;
+}
+
+/* Special styling for logout button */
+nav.container ul:last-child li a.logout-btn,
+nav.container ul:last-child li a[href="#"] {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
+nav.container ul:last-child li a.logout-btn:hover,
+nav.container ul:last-child li a[href="#"]:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Profile link special styling */
+nav.container ul:last-child li a[href="/profile"] {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+nav.container ul:last-child li a[href="/profile"]:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Login/Register buttons */
+nav.container ul:last-child li a[href="/login"],
+nav.container ul:last-child li a[href="/register"] {
+  background: rgba(255, 255, 255, 0.9);
+  color: #fd5068;
+  font-weight: 700;
+}
+
+nav.container ul:last-child li a[href="/login"]:hover,
+nav.container ul:last-child li a[href="/register"]:hover {
+  background: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav.container {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  nav.container ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  nav.container ul:first-child li strong {
+    font-size: 1.5rem;
+  }
+
+  nav.container ul:last-child li a {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  nav.container ul:last-child {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  nav.container ul:last-child li {
+    width: 100%;
+  }
+
+  nav.container ul:last-child li a {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+/* Smooth animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+nav.container ul:last-child li {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+nav.container ul:last-child li:nth-child(1) { animation-delay: 0.1s; }
+nav.container ul:last-child li:nth-child(2) { animation-delay: 0.2s; }
+nav.container ul:last-child li:nth-child(3) { animation-delay: 0.3s; }
+nav.container ul:last-child li:nth-child(4) { animation-delay: 0.4s; }
+nav.container ul:last-child li:nth-child(5) { animation-delay: 0.5s; }
+nav.container ul:last-child li:nth-child(6) { animation-delay: 0.6s; }
+
+/* Glow effect on hover for brand */
+nav.container ul:first-child li strong a:hover {
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+}
+

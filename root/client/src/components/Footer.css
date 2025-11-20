@@ -1,0 +1,32 @@
+/* Footer Styles - Tinder Theme */
+
+footer.container {
+  background: linear-gradient(135deg, var(--tinder-pink) 0%, var(--tinder-pink-light) 50%, var(--tinder-pink-dark) 100%);
+  padding: 1.5rem 2rem;
+  margin-top: auto;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  border-top: 3px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 -4px 20px var(--shadow-pink);
+}
+
+footer.container small {
+  color: var(--text-white);
+  font-size: 0.9rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  display: block;
+  text-align: center;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  footer.container {
+    padding: 1rem;
+  }
+  
+  footer.container small {
+    font-size: 0.8rem;
+  }
+}
+
