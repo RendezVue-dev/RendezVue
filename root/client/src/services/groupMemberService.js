@@ -1,6 +1,7 @@
+const API_URL = import.meta.env.API_URL || "http://localhost:3000";
 const getAllGroupMembers = async () => {
     try {
-        const response = await fetch("/api/groupMembers");
+        const response = await fetch(`${API_URL}/api/groupMembers`);
         if (!response.ok) throw new Error(`Failed to fetch group members: ${response.status}`);
         return await response.json();
     } catch (error) {
@@ -10,7 +11,7 @@ const getAllGroupMembers = async () => {
 
 const getGroupMemberById = async (userId) => {
     try {
-        const response = await fetch(`/api/groupMembers/user/${userId}`);
+        const response = await fetch(`${API_URL}/api/groupMembers/user/${userId}`);
         if (!response.ok) throw new Error(`Failed to fetch group member: ${response.status}`);
         return await response.json();
     } catch (error) {
@@ -21,7 +22,7 @@ const getGroupMemberById = async (userId) => {
 
 const getGroupMembersByGroupId = async (groupId) => {
     try {
-        const response = await fetch(`/api/groupMembers/group/${groupId}`);
+        const response = await fetch(`${API_URL}/api/groupMembers/group/${groupId}`);
         if (!response.ok) throw new Error(`Failed to fetch group members: ${response.status}`);
         return await response.json();
     } catch (error) {
@@ -32,7 +33,7 @@ const getGroupMembersByGroupId = async (groupId) => {
 
 const createGroupMember = async (detail) => {
     try {
-        const response = await fetch('/api/groupMembers', {
+        const response = await fetch(`${API_URL}/api/groupMembers`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(detail)
@@ -46,7 +47,7 @@ const createGroupMember = async (detail) => {
 
 const updateGroupMember = async (groupId, userId, admin) => {
     try {
-        const response = await fetch(`/api/groupMembers/${groupId}/${userId}`, {
+        const response = await fetch(`${API_URL}/api/groupMembers/${groupId}/${userId}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ admin })
@@ -60,7 +61,7 @@ const updateGroupMember = async (groupId, userId, admin) => {
 
 const deleteGroupMember = async (groupId, userId) => {
     try {
-        const response = await fetch(`/api/groupMembers/${groupId}/${userId}`, { method: "DELETE" });
+        const response = await fetch(`${API_URL}/api/groupMembers/${groupId}/${userId}`, { method: "DELETE" });
         if (!response.ok) throw new Error(`Failed to delete group member: ${response.status}`);
         return await response.json();
     } catch (error) {

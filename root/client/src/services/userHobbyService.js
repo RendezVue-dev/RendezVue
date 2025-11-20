@@ -1,6 +1,7 @@
+const API_URL = import.meta.env.API_URL || "http://localhost:3000";
 const getAllUserHobbies = async () => {
     try {
-        const response = await fetch("/api/userHobby");
+        const response = await fetch(`${API_URL}/api/userHobby`);
         if (!response.ok) throw new Error(`Failed to fetch user hobbies: ${response.status}`);
         return await response.json();
     } catch (error) {
@@ -10,7 +11,7 @@ const getAllUserHobbies = async () => {
 
 const getUserHobbyById = async (id) => {
     try {
-        const response = await fetch(`/api/userHobby/${id}`);
+        const response = await fetch(`${API_URL}/api/userHobby/${id}`);
         if (!response.ok) throw new Error(`Failed to fetch user hobby: ${response.status}`);
         return await response.json();
     } catch (error) {
@@ -20,7 +21,7 @@ const getUserHobbyById = async (id) => {
 
 const createUserHobby = async (detail) => {
     try {
-        const response = await fetch('/api/userHobby', {
+        const response = await fetch(`${API_URL}/api/userHobby`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(detail)
@@ -34,7 +35,7 @@ const createUserHobby = async (detail) => {
 
 const updateUserHobby = async (id, detail) => {
     try {
-        const response = await fetch(`/api/userHobby/${id}`, {
+        const response = await fetch(`${API_URL}/api/userHobby/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(detail)
@@ -48,7 +49,7 @@ const updateUserHobby = async (id, detail) => {
 
 const deleteUserHobby = async (detail) => {
     try {
-        const response = await fetch('/api/userHobby', {
+        const response = await fetch(`${API_URL}/api/userHobby`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(detail)

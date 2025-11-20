@@ -1,6 +1,7 @@
+const API_URL = import.meta.env.API_URL || "http://localhost:3000";
 const getAllUsers = async () => {
     try {
-        const response = await fetch("/api/users");
+        const response = await fetch(`${API_URL}/api/users`);
         if (!response.ok) throw new Error(`Failed to fetch users: ${response.status}`);
         return await response.json();
     } catch (error) {
@@ -10,7 +11,7 @@ const getAllUsers = async () => {
 
 const getUserById = async (id) => {
     try {
-        const response = await fetch(`/api/users/${id}`);
+        const response = await fetch(`${API_URL}/api/users/${id}`);
         if (!response.ok) throw new Error(`Failed to fetch user: ${response.status}`);
         return await response.json();
     } catch (error) {
@@ -20,7 +21,7 @@ const getUserById = async (id) => {
 
 const createUser = async (detail) => {
     try {
-        const response = await fetch('/api/users', {
+        const response = await fetch(`${API_URL}/api/users`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(detail)
@@ -34,7 +35,7 @@ const createUser = async (detail) => {
 
 const updateUser = async (id, detail) => {
     try {
-        const response = await fetch(`/api/users/${id}`, {
+        const response = await fetch(`${API_URL}/api/users/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(detail)
@@ -48,7 +49,7 @@ const updateUser = async (id, detail) => {
 
 const deleteUser = async (id) => {
     try {
-        const response = await fetch(`/api/users/${id}`, { method: "DELETE" });
+        const response = await fetch(`${API_URL}/api/users/${id}`, { method: "DELETE" });
         if (!response.ok) throw new Error(`Failed to delete user: ${response.status}`);
         return await response.json();
     } catch (error) {

@@ -19,11 +19,6 @@ export default defineConfig({
         secure: false,
       },
     } : {
-      '/api': {
-        target: "https://rendezvue-itds.onrender.com",
-        changeOrigin: true,
-        secure: false,
-      },
     }
   }
 })

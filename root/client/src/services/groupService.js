@@ -1,6 +1,7 @@
+const API_URL = import.meta.env.API_URL || "http://localhost:3000";
 const getAllGroups = async () => {
   try {
-    const response = await fetch('/api/groups');
+    const response = await fetch(`${API_URL}/api/groups`);
     if (!response.ok) throw new Error(`Failed to fetch groups: ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -11,7 +12,7 @@ const getAllGroups = async () => {
 
 const getGroupById = async (id) => {
   try {
-    const response = await fetch(`/api/groups/${id}`);
+    const response = await fetch(`${API_URL}/api/groups/${id}`);
     if (!response.ok) throw new Error(`Failed to fetch group: ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -22,7 +23,7 @@ const getGroupById = async (id) => {
 
 const createGroup = async (groupData) => {
   try {
-    const response = await fetch('/api/groups', {
+    const response = await fetch(`${API_URL}/api/groups`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(groupData)
@@ -37,7 +38,7 @@ const createGroup = async (groupData) => {
 
 const updateGroup = async (id, groupData) => {
   try {
-    const response = await fetch(`/api/groups/${id}`, {
+    const response = await fetch(`${API_URL}/api/groups/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(groupData)
@@ -52,7 +53,7 @@ const updateGroup = async (id, groupData) => {
 
 const deleteGroup = async (id) => {
   try {
-    const response = await fetch(`/api/groups/${id}`, { method: 'DELETE' });
+    const response = await fetch(`${API_URL}/api/groups/${id}`, { method: 'DELETE' });
     if (!response.ok) throw new Error(`Failed to delete group: ${response.status}`);
     return await response.json();
   } catch (error) {

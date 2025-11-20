@@ -1,6 +1,7 @@
+const API_URL = import.meta.env.API_URL || "http://localhost:3000";
 const getAllInsights = async () => {
     try {
-        const response = await fetch("/api/insights");
+        const response = await fetch(`${API_URL}/api/insights`);
         if (!response.ok) throw new Error(`Failed to fetch insights: ${response.status}`);
         return await response.json();
     } catch (error) {
@@ -10,7 +11,7 @@ const getAllInsights = async () => {
 
 const getInsightById = async (id) => {
     try {
-        const response = await fetch(`/api/insights/${id}`);
+        const response = await fetch(`${API_URL}/api/insights/${id}`);
         if (!response.ok) throw new Error(`Failed to fetch insight: ${response.status}`);
         return await response.json();
     } catch (error) {
@@ -20,7 +21,7 @@ const getInsightById = async (id) => {
 
 const createInsight = async (detail) => {
     try {
-        const response = await fetch('/api/insights', {
+        const response = await fetch(`${API_URL}/api/insights`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(detail)
@@ -34,7 +35,7 @@ const createInsight = async (detail) => {
 
 const updateInsight = async (id, detail) => {
     try {
-        const response = await fetch(`/api/insights/${id}`, {
+        const response = await fetch(`${API_URL}/api/insights/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(detail)
@@ -48,7 +49,7 @@ const updateInsight = async (id, detail) => {
 
 const deleteInsight = async (id) => {
     try {
-        const response = await fetch(`/api/insights/${id}`, { method: "DELETE" });
+        const response = await fetch(`${API_URL}/api/insights/${id}`, { method: "DELETE" });
         if (!response.ok) throw new Error(`Failed to delete insight: ${response.status}`);
         return await response.json();
     } catch (error) {

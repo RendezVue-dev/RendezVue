@@ -1,6 +1,7 @@
+const API_URL = import.meta.env.API_URL || "http://localhost:3000";
 const getMatchesByUserId = async (userId) => {
   try {
-    const response = await fetch(`/api/matches/${userId}`);
+    const response = await fetch(`${API_URL}/api/matches/${userId}`);
     if (!response.ok) throw new Error(`Failed to fetch matches: ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -11,7 +12,7 @@ const getMatchesByUserId = async (userId) => {
 
 const createMatch = async (matchData) => {
   try {
-    const response = await fetch('/api/matches', {
+    const response = await fetch(`${API_URL}/api/matches`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(matchData)
@@ -26,7 +27,7 @@ const createMatch = async (matchData) => {
 
 const updateMatch = async (user1Id, user2Id, matchData) => {
   try {
-    const response = await fetch(`/api/matches/pair/${user1Id}/${user2Id}`, {
+    const response = await fetch(`${API_URL}/api/matches/pair/${user1Id}/${user2Id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(matchData)
@@ -41,7 +42,7 @@ const updateMatch = async (user1Id, user2Id, matchData) => {
 
 const deleteMatch = async (user1Id, user2Id) => {
   try {
-    const response = await fetch(`/api/matches/pair/${user1Id}/${user2Id}`, { method: 'DELETE' });
+    const response = await fetch(`${API_URL}/api/matches/pair/${user1Id}/${user2Id}`, { method: 'DELETE' });
     if (!response.ok) throw new Error(`Failed to delete match: ${response.status}`);
     return await response.json();
   } catch (error) {

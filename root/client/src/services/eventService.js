@@ -1,6 +1,7 @@
+const API_URL = import.meta.env.API_URL || "http://localhost:3000";
 const getAllEvents = async () => {
   try {
-    const response = await fetch('/api/events');
+    const response = await fetch(`${API_URL}/api/events`);
     if (!response.ok) throw new Error(`Failed to fetch events: ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -11,7 +12,7 @@ const getAllEvents = async () => {
 
 const getEventById = async (id) => {
   try {
-    const response = await fetch(`/api/events/${id}`);
+    const response = await fetch(`${API_URL}/api/events/${id}`);
     if (!response.ok) throw new Error(`Failed to fetch event: ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -22,7 +23,7 @@ const getEventById = async (id) => {
 
 const createEvent = async (eventData) => {
   try {
-    const response = await fetch('/api/events', {
+    const response = await fetch(`${API_URL}/api/events`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(eventData)
@@ -37,7 +38,7 @@ const createEvent = async (eventData) => {
 
 const updateEvent = async (id, eventData) => {
   try {
-    const response = await fetch(`/api/events/${id}`, {
+    const response = await fetch(`${API_URL}/api/events/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(eventData)
@@ -52,7 +53,7 @@ const updateEvent = async (id, eventData) => {
 
 const deleteEvent = async (id) => {
   try {
-    const response = await fetch(`/api/events/${id}`, { method: 'DELETE' });
+    const response = await fetch(`${API_URL}/api/events/${id}`, { method: 'DELETE' });
     if (!response.ok) throw new Error(`Failed to delete event: ${response.status}`);
     return await response.json();
   } catch (error) {

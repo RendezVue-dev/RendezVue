@@ -1,6 +1,7 @@
+const API_URL = import.meta.env.API_URL || "http://localhost:3000";
 const getAllEventParticipations = async () => {
     try {
-        const response = await fetch("/api/eventParticipation/all");
+        const response = await fetch(`${API_URL}/api/eventParticipation/all`);
         if (!response.ok) throw new Error(`Failed to fetch event participations: ${response.status}`);
         return await response.json();
     } catch (error) {
@@ -11,7 +12,7 @@ const getAllEventParticipations = async () => {
 
 const getEventParticipationById = async (id) => {
     try {
-        const response = await fetch(`/api/eventParticipation/${id}`);
+        const response = await fetch(`${API_URL}/api/eventParticipation/${id}`);
         if (!response.ok) throw new Error(`Failed to fetch event participation: ${response.status}`);
         return await response.json();
     } catch (error) {
@@ -21,7 +22,7 @@ const getEventParticipationById = async (id) => {
 
 const createEventParticipation = async (detail) => {
     try {
-        const response = await fetch('/api/eventParticipation', {
+        const response = await fetch(`${API_URL}/api/eventParticipation`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(detail)
@@ -35,7 +36,7 @@ const createEventParticipation = async (detail) => {
 
 const updateEventParticipation = async (id, detail) => {
     try {
-        const response = await fetch(`/api/eventParticipation/${id}`, {
+        const response = await fetch(`${API_URL}/api/eventParticipation/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(detail)
@@ -49,7 +50,7 @@ const updateEventParticipation = async (id, detail) => {
 
 const deleteEventParticipation = async (detail) => {
     try {
-        const response = await fetch('/api/eventParticipation', {
+        const response = await fetch(`${API_URL}/api/eventParticipation`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(detail)
@@ -65,7 +66,7 @@ const getEventParticipants = async (eventId) => {
     try {
         // Get all participations and filter by eventId on client side
         // In a real app, you'd have a server endpoint for this
-        const response = await fetch('/api/eventParticipation');
+        const response = await fetch(`${API_URL}/api/eventParticipation`);
         if (!response.ok) throw new Error(`Failed to fetch event participations: ${response.status}`);
         const allParticipations = await response.json();
         return allParticipations.filter(p => p.event_id === eventId);
