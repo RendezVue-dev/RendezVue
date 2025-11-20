@@ -6,100 +6,132 @@ This document should be completed and submitted during **Unit 9** of this course
 
 This unit, be sure to complete all tasks listed below. To complete a task, place an `x` between the brackets.
 
-- [ ] Deploy your project on Render
-  - [ ] In `readme.md`, add the link to your deployed project
-- [ ] Update the status of issues in your project board as you complete them
-- [ ] In `readme.md`, check off the features you have completed in this unit by adding a ✅ emoji in front of their title
-  - [ ] Under each feature you have completed, **include a GIF** showing feature functionality
-- [ ] In this document, complete the **Reflection** section below
-- [ ] 🚩🚩🚩**Complete the Final Project Feature Checklist section below**, detailing each feature you completed in the project (ONLY include features you implemented, not features you planned)
-- [ ] 🚩🚩🚩**Record a GIF showing a complete run-through of your app** that displays all the components included in the **Final Project Feature Checklist** below
-  - [ ] Include this GIF in the **Final Demo GIF** section below
+- [X] Deploy your project on Render
+  - [X] In `readme.md`, add the link to your deployed project
+- [X] Update the status of issues in your project board as you complete them
+- [X] In `readme.md`, check off the features you have completed in this unit by adding a ✅ emoji in front of their title
+  - [X] Under each feature you have completed, **include a GIF** showing feature functionality
+- [X] In this document, complete the **Reflection** section below
+- [X] 🚩🚩🚩**Complete the Final Project Feature Checklist section below**, detailing each feature you completed in the project (ONLY include features you implemented, not features you planned)
+- [X] 🚩🚩🚩**Record a GIF showing a complete run-through of your app** that displays all the components included in the **Final Project Feature Checklist** below
+  - [X] Include this GIF in the **Final Demo GIF** section below
 
 ## Final Project Feature Checklist
 
 Complete the checklist below detailing each baseline, custom, and stretch feature you completed in your project. This checklist will help graders look for each feature in the GIF you submit.
 
-### Baseline Features
+### Baseline Features (MUST complete ALL)
 
-👉🏾👉🏾👉🏾 Check off each completed feature below.
+- [X] The web app includes an Express backend app and a React frontend app.
+- [X] The web app includes dynamic routes for both frontend and backend apps.
+- [X] The web app is deployed on Render with all pages and features working.
 
-- [ ] The project includes an Express backend app and a React frontend app
-- [ ] The project includes these backend-specific features:
-  - [ ] At least one of each of the following database relationships in Postgres
-    - [ ] one-to-many
-    - [ ] many-to-many with a join table
-  - [ ] A well-designed RESTful API that:
-    - [ ] supports all four main request types for a single entity (ex. tasks in a to-do list app): GET, POST, PATCH, and DELETE
-      - [ ] the user can **view** items, such as tasks
-      - [ ] the user can **create** a new item, such as a task
-      - [ ] the user can **update** an existing item by changing some or all of its values, such as changing the title of task
-      - [ ] the user can **delete** an existing item, such as a task
-    - [ ] Routes follow proper naming conventions
-  - [ ] The web app includes the ability to reset the database to its default state
-- [ ] The project includes these frontend-specific features:
-  - [ ] At least one redirection, where users are able to navigate to a new page with a new URL within the app
-  - [ ] At least one interaction that the user can initiate and complete on the same page without navigating to a new page
-  - [ ] Dynamic frontend routes created with React Router
-  - [ ] Hierarchically designed React components
-    - [ ] Components broken down into categories, including Page and Component types
-    - [ ] Corresponding container components and presenter components as appropriate
-- [ ] The project includes dynamic routes for both frontend and backend apps
-- [ ] The project is deployed on Render with all pages and features that are visible to the user are working as intended
+#### Backend Features
 
-### Custom Features
+- [X] The web app implements at least one of each of the following database relationship in Postgres:
+    * [X] one-to-many
+    * [X] many-to-many with a join table
+- [X] The web app implements a well-designed RESTful API that:
+    * [X] supports all four main request types for a single entity (ex. tasks in a to-do list app): GET, POST,PATCH, and DELETE
+    * [X] the user can view items, such as tasks
+    * [X] the user can create a new item, such as a task
+    * [X] the user can update an existing item by changing some or all of its values, such as changing the title of task
+    * [X] the user can delete an existing item, such as a task
+- [X] Implements proper naming conventions for routes.
+- [X] The web app includes the ability to reset the database to its default state.
 
-👉🏾👉🏾👉🏾 Check off each completed feature below.
+#### Frontend Features
 
-- [ ] The project gracefully handles errors
-- [ ] The project includes a one-to-one database relationship
-- [ ] The project includes a slide-out pane or modal as appropriate for your use case that pops up and covers the page content without navigating away from the current page
-- [ ] The project includes a unique field within the join table
-- [ ] The project includes a custom non-RESTful route with corresponding controller actions
-- [ ] The user can filter or sort items based on particular criteria as appropriate for your use case
-- [ ] Data is automatically generated in response to a certain event or user action. Examples include generating a default inventory for a new user starting a game or creating a starter set of tasks for a user creating a new task app account
-- [ ] Data submitted via a POST or PATCH request is validated before the database is updated (e.g. validating that an event is in the future before allowing a new event to be created)
-  - [ ] *To receive full credit, please be sure to demonstrate in your walkthrough that for certain inputs, the item will NOT be successfully created or updated.*
+- [X] The web app implements at least one redirection, where users are able to navigate to a new page with a new URL within the app (Register -> Log In)
+- [X] The web app implements at least one interaction that the user can initiate and complete on the same page without navigating to a new page (create new hobby)
+- [X] The web app uses dynamic frontend routes created with React Router.
+- [X] The web app uses hierarchically designed React components:
+    * [X] Components are broken down into categories, including page and component types.
+    * [X] Corresponding container components and presenter components as appropriate.
+- [X] The project is deployed on Render with all pages and features that are visible to the user are working as intended
+
+### Custom Features (MUST complete TWO)
+
+- [X] The web app gracefully handles errors.
+- [X] The user can filter or sort items based on particular criteria as appropriate for your use case.
+- [X] Data is automatically generated in response to a certain event or user action. Examples include generating a default inventory for a new user starting a game or creating a starter set of tasks for a user creating a new task app account.(match and insight entry created when a new user register)
+- [X] Data submitted via a POST or PATCH request is validated before the database is updated (e.g. validating that an event is in the future before allowing a new event to be created)
 
 ### Stretch Features
 
-👉🏾👉🏾👉🏾 Check off each completed feature below.
-
-- [ ] A subset of pages require the user to log in before accessing the content
-  - [ ] Users can log in and log out via GitHub OAuth with Passport.js
-- [ ] Restrict available user options dynamically, such as restricting available purchases based on a user's currency
-- [ ] Show a spinner while a page or page element is loading
-- [ ] Disable buttons and inputs during the form submission process
-- [ ] Disable buttons after they have been clicked
-  - *At least 75% of buttons in your app must exhibit this behavior to receive full credit*
-- [ ] Users can upload images to the app and have them be stored on a cloud service
-  - *A user profile picture does **NOT** count for this rubric item **only if** the app also includes "Login via GitHub" functionality.*
-  - *Adding a photo via a URL does **NOT** count for this rubric item (for example, if the user provides a URL with an image to attach it to the post).*
-  - *Selecting a photo from a list of provided photos does **NOT** count for this rubric item.*
-- [ ] 🍞 [Toast messages](https://www.patternfly.org/v3/pattern-library/communication/toast-notifications/index.html) deliver simple feedback in response to user events
+- [X] A subset of pages require the user to log in before accessing the content.
+- [X] Restrict available user options dynamically, such as restricting available purchases based on a user's currency. (admin can kick or add other user admin)
 
 ## Final Demo GIF
 
-🔗 [Here's a GIF walkthrough of the final project](👉🏾👉🏾👉🏾 your link here)
+### ✅ Hobby-Based and location-based Matching
+
+Connect people nearby who share the same favorite hobbies, from ballroom dancing, cooking, hiking to raving, by selecting interests in the user's profile. The app uses location data to suggest people within a chosen distance radius, so you can easily meet up locally.
+
+![Matches](../Match.gif)
+
+### ✅ Event Discovery
+
+Create or join hobby-related events in the nearby area, whether it’s a weekend dance class, art jam, cooking class, or running group. If you create an event
+
+![Events](../Events.gif)
+
+### ✅ Authentication
+
+Users need to create an account or log in to access the app’s features. They can sign up using their email, phone number, or third-party accounts (such as Google or Facebook). Authentication ensures user privacy and security while allowing the app to personalize hobby matches and save preferences. Once logged in, users can manage their profiles, update interests, and start connecting with nearby hobby partners.(gif goes here)
+
+![Authentication](../Authentication.gif)
+
+### ✅  Hobby Explore Page
+
+Discover trending hobbies and create hobbies for ourselves.
+
+![Hobby Explore](../HobbyExplore.gif)
+
+### ✅ Group Matching
+
+Not just one-on-one — join small groups of people who share your hobby for more social and inclusive meetups.
+
+![Group Matching](../Groups.gif)
+
+### ✅ Personalized Profiles
+
+Show off the user's hobbies and information their personalized profile. They can also upload photos or achievements related to their interests. (further development)
+
+![Profile](../Profile.gif)
+
+### ✅ User Insights 
+
+Get data-driven insights into how well the user match with others based on shared interests, frequency of interaction, and proximity.
+
+![Insights](../Insights.gif)
+
+### ✅ Database Implementation
+
+Database and server side implemented completely
+
+<img src="../Database.gif" />
 
 ## Reflection
 
 ### 1. What went well during this unit?
 
-[👉🏾👉🏾👉🏾 your answer here]
+A lot of progress was made on the project. We were able to create the backend, frontend, and set up our database. In addition to that, it was nice to start to see some of our wireframes start to take life in the webapp.
 
 ### 2. What were some challenges your group faced in this unit?
 
-[👉🏾👉🏾👉🏾 your answer here]
+Our group faced some coordination issues due to our busy schedules, so it was difficult to find time to work concurrently. We were grateful to be able to commit to the project separately and merge our work as needed.
 
-### 3. What were some of the highlights or achievements that you are most proud of in this project?
+### 3. Did you finish all of your tasks in your sprint plan for this week? If you did not finish all of the planned tasks, how would you prioritize the remaining tasks on your list?
 
-[👉🏾👉🏾👉🏾 your answer here]
+This week, we were not able to accomplish all tasks in our sprint plan. We need to seed the sample data for our events, hobbies, and other users. In addition to that, adding options to view other users' profiles from the exploring and event pages would be helpful. That way, users could match by looking at each others' profiles.
 
-### 4. Reflecting on your web development journey so far, how have you grown since the beginning of the course?
 
-[👉🏾👉🏾👉🏾 your answer here]
+### 4. Which features and user stories would you consider “at risk”? How will you change your plan if those items remain “at risk”?
 
-### 5. Looking ahead, what are your goals related to web development, and what steps do you plan to take to achieve them?
+Currently, our biggest 'at risk' feature would be our location-based discovery. With the short timeframe we have, it does not seem feasible that we could accomplish this. The running idea was to utilize GPS data in order to match users by location, but it may be more prudent to simplify this feature to something like matching by city or zip code—things that have already been implemented.
 
-[👉🏾👉🏾👉🏾 your answer here]
+### 5. What additional support will you need in upcoming units as you continue to work on your final project?
+
+For the most part, we will simply require time in order to finish the rest of our features and flesh out what we currently have.
+
