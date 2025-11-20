@@ -5,9 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "reset": "cd ./config && node reset.js",
-    "create_db": "cd ./config && node create_db.js",
-    "start": "nodemon server.js"
+    "reset": "cd config && node --require dotenv/config reset.js",
+    "start": "nodemon --require dotenv/config server.js"
   },
   "author": "",
   "license": "ISC",
