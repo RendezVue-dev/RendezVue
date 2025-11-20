@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "reset": "cd config && node --require dotenv/config reset.js",
-    "start": "node --require dotenv/config server.js"
+    "start": "node  server.js"
   },
   "author": "",
   "license": "ISC",
