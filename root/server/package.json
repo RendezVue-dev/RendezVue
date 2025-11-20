@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "reset": "cd config && node --require dotenv/config reset.js",
-    "start": "npm i nodemon && node --require dotenv/config server.js"
+    "start": "node --require dotenv/config server.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,9 +20,7 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.3",
-    "routes": "^2.1.0"
-  },
-  "devDependencies": {
+    "routes": "^2.1.0",
     "nodemon": "^3.1.11"
   }
 }
