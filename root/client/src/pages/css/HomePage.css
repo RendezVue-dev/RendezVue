@@ -1,0 +1,163 @@
+/* HomePage Styles - Tinder Theme */
+
+.homepage-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.homepage-hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, rgba(253, 80, 104, 0.05) 0%, rgba(255, 138, 128, 0.05) 100%);
+  border-radius: 24px;
+  margin-bottom: 4rem;
+}
+
+.homepage-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--tinder-pink) 0%, var(--tinder-pink-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.homepage-subtitle {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.homepage-description {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.8;
+}
+
+.homepage-cta {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-button {
+  padding: 1rem 2.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.cta-button.primary {
+  background: linear-gradient(135deg, var(--tinder-pink) 0%, var(--tinder-pink-dark) 100%);
+  color: var(--text-white);
+  box-shadow: 0 4px 12px var(--shadow-pink);
+}
+
+.cta-button.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px var(--shadow-pink);
+}
+
+.cta-button.secondary {
+  background-color: var(--bg-primary);
+  color: var(--tinder-pink);
+  border: 2px solid var(--tinder-pink);
+  box-shadow: 0 2px 8px var(--shadow-light);
+}
+
+.cta-button.secondary:hover {
+  background-color: var(--tinder-pink);
+  color: var(--text-white);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px var(--shadow-pink);
+}
+
+.homepage-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.feature-card {
+  background-color: var(--bg-primary);
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  border: 1px solid var(--border-light);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px var(--shadow-medium);
+  border-color: var(--tinder-pink);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+}
+
+.feature-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .homepage-container {
+    padding: 2rem 1rem;
+  }
+  
+  .homepage-hero {
+    padding: 2rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .homepage-title {
+    font-size: 2.5rem;
+  }
+  
+  .homepage-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .homepage-description {
+    font-size: 1rem;
+  }
+  
+  .homepage-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .cta-button {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .homepage-features {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+

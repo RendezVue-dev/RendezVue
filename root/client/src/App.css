@@ -1,55 +1,196 @@
+/* App Container - Flexbox layout to stick footer to bottom */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg-secondary);
+}
+
+/* Main content area - grows to fill available space */
+.main-content {
+  flex: 1;
+  max-width: 100%;
+  background-color: var(--bg-secondary);
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  margin: 0;
+  padding: 0;
+  text-align: left;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
+/* Tinder-style Cards */
 .card {
+  background-color: var(--bg-primary);
+  border-radius: 16px;
   padding: 2em;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  border: 1px solid var(--border-light);
+  transition: all 0.3s ease;
 }
 
-.read-the-docs {
-  color: #888;
+.card:hover {
+  box-shadow: 0 4px 16px var(--shadow-medium);
+  transform: translateY(-2px);
 }
 
+/* Event List - Tinder style */
 .event-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
+  gap: 1.5rem;
+  padding: 1rem 0;
 }
 
 .event-card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 1rem;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 1.5rem;
   text-align: left;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  transition: all 0.3s ease;
+}
+
+.event-card:hover {
+  box-shadow: 0 4px 16px var(--shadow-medium);
+  transform: translateY(-2px);
+  border-color: var(--tinder-pink);
+}
+
+.event-card h2 {
+  color: var(--text-primary);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.event-card p {
+  color: var(--text-secondary);
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.event-card strong {
+  color: var(--tinder-pink);
+  font-weight: 600;
+}
+
+/* Form Styles - Tinder theme */
+form {
+  background-color: var(--bg-primary);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px var(--shadow-light);
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form textarea,
+form select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid var(--border-light);
+  border-radius: 12px;
+  font-size: 1rem;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus,
+form textarea:focus,
+form select:focus {
+  outline: none;
+  border-color: var(--tinder-pink);
+  box-shadow: 0 0 0 3px rgba(253, 80, 104, 0.1);
+}
+
+form button[type="submit"] {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, var(--tinder-pink) 0%, var(--tinder-pink-dark) 100%);
+  color: var(--text-white);
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px var(--shadow-pink);
+}
+
+form button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-pink);
+}
+
+form button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* Error Messages - Tinder style */
+.error-message {
+  color: var(--tinder-pink);
+  background-color: rgba(253, 80, 104, 0.1);
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  margin: 1rem 0;
+  border-left: 4px solid var(--tinder-pink);
+}
+
+/* Success Messages */
+.success-message {
+  color: #4caf50;
+  background-color: rgba(76, 175, 80, 0.1);
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  margin: 1rem 0;
+  border-left: 4px solid #4caf50;
+}
+
+/* Loading States */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .event-list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  form {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
 }

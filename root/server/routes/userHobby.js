@@ -3,14 +3,15 @@ import UserHobbyController from "../controllers/userHobby.js"
 
 const router = express.Router();
 
+// Order matters: specific routes before parameterized routes
 router.get('/all', UserHobbyController.getAllUsersHobbies);
-    
-router.get('/:id', UserHobbyController.getAllUsersHobbiesByUserId);
+
+router.post('/', UserHobbyController.createUserHobby);
+
+router.delete('/', UserHobbyController.deleteUserHobby);
 
 router.get('/', UserHobbyController.getUserHobbyByUserIdAndHobbyId);
-
-router.post('/:id', UserHobbyController.createUserHobby);
-
-router.delete('/:id', UserHobbyController.deleteUserHobby);
+    
+router.get('/:id', UserHobbyController.getAllUsersHobbiesByUserId);
 
 export default router;

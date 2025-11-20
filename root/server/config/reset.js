@@ -475,7 +475,7 @@ const createZipcodesTable = async () => {
 const seedZipcodesTable = async () => {    
     await createZipcodesTable();
     
-    console.log(`📦 Inserting ${zipcodeData.length} zipcodes in batches...`);
+    console.log(`Inserting ${zipcodeData.length} zipcodes in batches...`);
     const batchSize = 1000;
     
     for (let i = 0; i < zipcodeData.length; i += batchSize) {

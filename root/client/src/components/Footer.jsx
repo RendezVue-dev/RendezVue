@@ -1,10 +1,11 @@
 import React from 'react';
+import './Footer.css';
 
 const Footer = () => {
   return (
     <footer className="container">
       <small>
-        &copy; 2025 RendezVue. All rights reserved.
+        &copy; {new Date().getFullYear()} RendezVue. All rights reserved.
       </small>
     </footer>
   );

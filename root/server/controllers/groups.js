@@ -67,7 +67,8 @@ const updateGroup = async (req, res) => {
         const currentTime = FormatCurrentDateTimeService.formatCurrentDateTime();
         const { name, description, hobby_id, num_members, created_by } = req.body;
         const results = await pool.query(`
-            UPDATE groups SET name = $1, description = $2, hobby_id = $3, num_members = $4, created_by = $5, modified_at = $6 WHERE id = $7`,
+            UPDATE groups SET name = $1, description = $2, hobby_id = $3, num_members = $4, created_by = $5, modified_at = $6 WHERE id = $7
+            RETURNING *`,
             [ name, description, hobby_id, num_members, created_by, currentTime, groupId]
         );
         res.status(200).json(results.rows[0]);
